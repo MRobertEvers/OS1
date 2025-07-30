@@ -3973,7 +3973,7 @@ public class Client extends GameShell {
 							var55.model = new LocEntity(var56, 4, (var51 + 2 & 0x3) + 4, currentLevel, var47, var48, var45, false, var55.model);
 						} else if (var50 == 8) {
 							var55.model = new LocEntity(var56, 4, var51 + 4, currentLevel, var47, var48, var45, false, var55.model);
-							var55.field713 = new LocEntity(var56, 4, (var51 + 2 & 0x3) + 4, currentLevel, var47, var48, var45, false, var55.field713);
+							var55.modelb = new LocEntity(var56, 4, (var51 + 2 & 0x3) + 4, currentLevel, var47, var48, var45, false, var55.modelb);
 						}
 					}
 				}
@@ -6018,9 +6018,9 @@ public class Client extends GameShell {
 						int var247 = var10.height + var13 - var240;
 						int var248 = var10.height + var13 + var239;
 						Pix3D.method2764(var241, var242, var243);
-						Pix3D.method2767(var245, var246, var247, var241, var242, var243, var10.colour);
+						Pix3D.flatTriangle(var245, var246, var247, var241, var242, var243, var10.colour);
 						Pix3D.method2764(var241, var243, var244);
-						Pix3D.method2767(var245, var247, var248, var241, var243, var244, var10.colour);
+						Pix3D.flatTriangle(var245, var247, var248, var241, var243, var244, var10.colour);
 					}
 				}
 			}

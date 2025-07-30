@@ -419,7 +419,7 @@ public class LocType extends DoublyLinkable {
 	}
 
 	@ObfuscatedName("ey.w(II[[IIIII)Lfu;")
-	public final Entity method2364(int arg0, int arg1, int[][] arg2, int arg3, int arg4, int arg5) {
+	public final Entity addLoc(int arg0, int arg1, int[][] arg2, int arg3, int arg4, int arg5) {
 		long var7;
 		if (this.shapes == null) {
 			var7 = (this.id << 10) + arg1;

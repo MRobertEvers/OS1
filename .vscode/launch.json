@@ -1,0 +1,55 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Client",
+            "request": "launch",
+            "mainClass": "jagex3.client.Client",
+            "projectName": "OS1"
+        },
+        {
+            "type": "java",
+            "name": "Debug OS1 Client",
+            "request": "launch",
+            "mainClass": "jagex3.client.Client",
+            "projectName": "osclient",
+            "vmArgs": [
+                "-Xmx512m",
+                "-Xms256m"
+            ],
+            "env": {
+                "JAVA_TOOL_OPTIONS": "-Dfile.encoding=UTF-8"
+            },
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "java",
+            "name": "Debug OS1 Client (Gradle)",
+            "request": "launch",
+            "mainClass": "jagex3.client.Client",
+            "projectName": "osclient",
+            "vmArgs": [
+                "-Xmx512m",
+                "-Xms256m"
+            ],
+            "env": {
+                "JAVA_TOOL_OPTIONS": "-Dfile.encoding=UTF-8"
+            },
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "gradle: build"
+        },
+        {
+            "type": "java",
+            "name": "Attach to OS1 Client",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005,
+            "timeout": 30000
+        }
+    ]
+} 

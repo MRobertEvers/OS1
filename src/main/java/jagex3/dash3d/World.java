@@ -69,10 +69,10 @@ public class World {
 	public static final int[] WALL_DECORATION_ROTATION_FORWARD_Z = new int[] { 0, -1, 0, 1 };
 
 	@ObfuscatedName("l.a")
-	public static final int[] field31 = new int[] { 1, -1, -1, 1 };
+	public static final int[] diagonalDisplacementX = new int[] { 1, -1, -1, 1 };
 
 	@ObfuscatedName("l.h")
-	public static final int[] field32 = new int[] { -1, -1, 1, 1 };
+	public static final int[] diagonalDisplacementY = new int[] { -1, -1, 1, 1 };
 
 	@ObfuscatedName("l.x")
 	public static int randomHueOffset = (int) (Math.random() * 17.0D) - 8;
@@ -444,7 +444,7 @@ public class World {
 			if (!Client.lowMemory || var9.active != 0 || var9.blockwalk == 1 || var9.forcedecor) {
 				Entity var22;
 				if (var9.anim == -1 && var9.multiloc == null) {
-					var22 = var9.method2364(22, arg4, var16, var18, var17, var19);
+					var22 = var9.addLoc(22, arg4, var16, var18, var17, var19);
 				} else {
 					var22 = new LocEntity(arg3, 22, arg4, arg0, arg1, arg2, var9.anim, true, null);
 				}
@@ -456,7 +456,7 @@ public class World {
 		} else if (arg5 == 10 || arg5 == 11) {
 			Entity var45;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var45 = var9.method2364(10, arg4, var16, var18, var17, var19);
+				var45 = var9.addLoc(10, arg4, var16, var18, var17, var19);
 			} else {
 				var45 = new LocEntity(arg3, 10, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -482,7 +482,7 @@ public class World {
 		} else if (arg5 >= 12) {
 			Entity var23;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var23 = var9.method2364(arg5, arg4, var16, var18, var17, var19);
+				var23 = var9.addLoc(arg5, arg4, var16, var18, var17, var19);
 			} else {
 				var23 = new LocEntity(arg3, arg5, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -496,7 +496,7 @@ public class World {
 		} else if (arg5 == 0) {
 			Entity var24;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var24 = var9.method2364(0, arg4, var16, var18, var17, var19);
+				var24 = var9.addLoc(0, arg4, var16, var18, var17, var19);
 			} else {
 				var24 = new LocEntity(arg3, 0, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -543,7 +543,7 @@ public class World {
 		} else if (arg5 == 1) {
 			Entity var25;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var25 = var9.method2364(1, arg4, var16, var18, var17, var19);
+				var25 = var9.addLoc(1, arg4, var16, var18, var17, var19);
 			} else {
 				var25 = new LocEntity(arg3, 1, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -567,8 +567,8 @@ public class World {
 			Entity var27;
 			Entity var28;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var27 = var9.method2364(2, arg4 + 4, var16, var18, var17, var19);
-				var28 = var9.method2364(2, var26, var16, var18, var17, var19);
+				var27 = var9.addLoc(2, arg4 + 4, var16, var18, var17, var19);
+				var28 = var9.addLoc(2, var26, var16, var18, var17, var19);
 			} else {
 				var27 = new LocEntity(arg3, 2, arg4 + 4, arg0, arg1, arg2, var9.anim, true, null);
 				var28 = new LocEntity(arg3, 2, var26, arg0, arg1, arg2, var9.anim, true, null);
@@ -598,7 +598,7 @@ public class World {
 		} else if (arg5 == 3) {
 			Entity var29;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var29 = var9.method2364(3, arg4, var16, var18, var17, var19);
+				var29 = var9.addLoc(3, arg4, var16, var18, var17, var19);
 			} else {
 				var29 = new LocEntity(arg3, 3, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -620,7 +620,7 @@ public class World {
 		} else if (arg5 == 9) {
 			Entity var30;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var30 = var9.method2364(arg5, arg4, var16, var18, var17, var19);
+				var30 = var9.addLoc(arg5, arg4, var16, var18, var17, var19);
 			} else {
 				var30 = new LocEntity(arg3, arg5, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -634,7 +634,7 @@ public class World {
 		} else if (arg5 == 4) {
 			Entity var31;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var31 = var9.method2364(4, arg4, var16, var18, var17, var19);
+				var31 = var9.addLoc(4, arg4, var16, var18, var17, var19);
 			} else {
 				var31 = new LocEntity(arg3, 4, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -647,7 +647,7 @@ public class World {
 			}
 			Entity var34;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var34 = var9.method2364(4, arg4, var16, var18, var17, var19);
+				var34 = var9.addLoc(4, arg4, var16, var18, var17, var19);
 			} else {
 				var34 = new LocEntity(arg3, 4, arg4, arg0, arg1, arg2, var9.anim, true, null);
 			}
@@ -660,20 +660,20 @@ public class World {
 			}
 			Entity var37;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var37 = var9.method2364(4, arg4 + 4, var16, var18, var17, var19);
+				var37 = var9.addLoc(4, arg4 + 4, var16, var18, var17, var19);
 			} else {
 				var37 = new LocEntity(arg3, 4, arg4 + 4, arg0, arg1, arg2, var9.anim, true, null);
 			}
-			arg6.addDecor(arg0, arg1, arg2, var17, var37, null, 256, arg4, field31[arg4] * var35, field32[arg4] * var35, var20, var21);
+			arg6.addDecor(arg0, arg1, arg2, var17, var37, null, 0x100, arg4, diagonalDisplacementX[arg4] * var35, diagonalDisplacementY[arg4] * var35, var20, var21);
 		} else if (arg5 == 7) {
 			int var38 = arg4 + 2 & 0x3;
 			Entity var39;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var39 = var9.method2364(4, var38 + 4, var16, var18, var17, var19);
+				var39 = var9.addLoc(4, var38 + 4, var16, var18, var17, var19);
 			} else {
 				var39 = new LocEntity(arg3, 4, var38 + 4, arg0, arg1, arg2, var9.anim, true, null);
 			}
-			arg6.addDecor(arg0, arg1, arg2, var17, var39, null, 256, var38, 0, 0, var20, var21);
+			arg6.addDecor(arg0, arg1, arg2, var17, var39, null, 0x100, var38, 0, 0, var20, var21);
 		} else if (arg5 == 8) {
 			int var40 = 8;
 			int var41 = arg6.getWallBitset(arg0, arg1, arg2);
@@ -684,13 +684,13 @@ public class World {
 			Entity var43;
 			Entity var44;
 			if (var9.anim == -1 && var9.multiloc == null) {
-				var43 = var9.method2364(4, arg4 + 4, var16, var18, var17, var19);
-				var44 = var9.method2364(4, var42 + 4, var16, var18, var17, var19);
+				var43 = var9.addLoc(4, arg4 + 4, var16, var18, var17, var19);
+				var44 = var9.addLoc(4, var42 + 4, var16, var18, var17, var19);
 			} else {
 				var43 = new LocEntity(arg3, 4, arg4 + 4, arg0, arg1, arg2, var9.anim, true, null);
 				var44 = new LocEntity(arg3, 4, var42 + 4, arg0, arg1, arg2, var9.anim, true, null);
 			}
-			arg6.addDecor(arg0, arg1, arg2, var17, var43, var44, 256, arg4, field31[arg4] * var40, field32[arg4] * var40, var20, var21);
+			arg6.addDecor(arg0, arg1, arg2, var17, var43, var44, 0x100, arg4, diagonalDisplacementX[arg4] * var40, diagonalDisplacementY[arg4] * var40, var20, var21);
 		}
 	}
 
@@ -1360,7 +1360,7 @@ public class World {
 			} else {
 				var37 = new LocEntity(arg4, 4, arg5 + 4, arg1, arg2, arg3, var9.anim, true, null);
 			}
-			arg7.addDecor(arg0, arg2, arg3, var17, var37, null, 256, arg5, field31[arg5] * var35, field32[arg5] * var35, var20, var21);
+			arg7.addDecor(arg0, arg2, arg3, var17, var37, null, 256, arg5, diagonalDisplacementX[arg5] * var35, diagonalDisplacementY[arg5] * var35, var20, var21);
 		} else if (arg6 == 7) {
 			int var38 = arg5 + 2 & 0x3;
 			Entity var39;
@@ -1386,7 +1386,7 @@ public class World {
 				var43 = new LocEntity(arg4, 4, arg5 + 4, arg1, arg2, arg3, var9.anim, true, null);
 				var44 = new LocEntity(arg4, 4, var42 + 4, arg1, arg2, arg3, var9.anim, true, null);
 			}
-			arg7.addDecor(arg0, arg2, arg3, var17, var43, var44, 256, arg5, field31[arg5] * var40, field32[arg5] * var40, var20, var21);
+			arg7.addDecor(arg0, arg2, arg3, var17, var43, var44, 256, arg5, diagonalDisplacementX[arg5] * var40, diagonalDisplacementY[arg5] * var40, var20, var21);
 		}
 	}
 

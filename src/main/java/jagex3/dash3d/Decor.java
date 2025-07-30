@@ -31,7 +31,7 @@ public class Decor {
 	public Entity model;
 
 	@ObfuscatedName("bh.g")
-	public Entity field713;
+	public Entity modelb;
 
 	@ObfuscatedName("bh.q")
 	public int bitset = 0;

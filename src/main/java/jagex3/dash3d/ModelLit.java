@@ -42,7 +42,7 @@ public class ModelLit extends Entity {
 	public byte[] field2709;
 
 	@ObfuscatedName("fw.y")
-	public byte[] field2682;
+	public byte[] textureCoords;
 
 	@ObfuscatedName("fw.t")
 	public short[] field2704;
@@ -167,6 +167,7 @@ public class ModelLit extends Entity {
 	}
 
 	@ObfuscatedName("fw.y([B)V")
+	// decodeType1
 	public void method2944(byte[] src) {
 		Packet head = new Packet(src);
 		Packet var3 = new Packet(src);
@@ -295,7 +296,7 @@ public class ModelLit extends Entity {
 		}
 
 		if (var16 == 1 && var11 > 0) {
-			this.field2682 = new byte[var10];
+			this.textureCoords = new byte[var10];
 		}
 
 		this.field2704 = new short[var10];
@@ -371,8 +372,8 @@ public class ModelLit extends Entity {
 			if (var16 == 1) {
 				this.field2705[var72] = (short) (var7.g2() - 1);
 			}
-			if (this.field2682 != null && this.field2705[var72] != -1) {
-				this.field2682[var72] = (byte) (var8.g1() - 1);
+			if (this.textureCoords != null && this.field2705[var72] != -1) {
+				this.textureCoords[var72] = (byte) (var8.g1() - 1);
 			}
 		}
 		head.pos = var33;
@@ -480,6 +481,7 @@ public class ModelLit extends Entity {
 	}
 
 	@ObfuscatedName("fw.t([B)V")
+	// decodeOldFormat
 	public void method2955(byte[] arg0) {
 		boolean var2 = false;
 		boolean var3 = false;
@@ -550,7 +552,7 @@ public class ModelLit extends Entity {
 		}
 		if (var12 == 1) {
 			this.field2679 = new byte[var10];
-			this.field2682 = new byte[var10];
+			this.textureCoords = new byte[var10];
 			this.field2705 = new short[var10];
 		}
 		if (var13 == 255) {
@@ -613,14 +615,14 @@ public class ModelLit extends Entity {
 					this.field2679[var51] = 0;
 				}
 				if ((var52 & 0x2) == 2) {
-					this.field2682[var51] = (byte) (var52 >> 2);
+					this.textureCoords[var51] = (byte) (var52 >> 2);
 					this.field2705[var51] = this.field2704[var51];
 					this.field2704[var51] = 127;
 					if (this.field2705[var51] != -1) {
 						var3 = true;
 					}
 				} else {
-					this.field2682[var51] = -1;
+					this.textureCoords[var51] = -1;
 					this.field2705[var51] = -1;
 				}
 			}
@@ -685,20 +687,20 @@ public class ModelLit extends Entity {
 			this.field2681[var62] = (short) var4.g2();
 			this.field2690[var62] = (short) var4.g2();
 		}
-		if (this.field2682 != null) {
+		if (this.textureCoords != null) {
 			boolean var63 = false;
 			for (int var64 = 0; var64 < var10; var64++) {
-				int var65 = this.field2682[var64] & 0xFF;
+				int var65 = this.textureCoords[var64] & 0xFF;
 				if (var65 != 255) {
 					if ((this.field2688[var65] & 0xFFFF) == this.faceVertexA[var64] && (this.field2681[var65] & 0xFFFF) == this.faceVertexB[var64] && (this.field2690[var65] & 0xFFFF) == this.faceVertexC[var64]) {
-						this.field2682[var64] = -1;
+						this.textureCoords[var64] = -1;
 					} else {
 						var63 = true;
 					}
 				}
 			}
 			if (!var63) {
-				this.field2682 = null;
+				this.textureCoords = null;
 			}
 		}
 		if (!var3) {
@@ -740,7 +742,7 @@ public class ModelLit extends Entity {
 				var5 |= var10.field2709 != null;
 				var6 |= var10.field2699 != null;
 				var7 |= var10.field2705 != null;
-				var8 |= var10.field2682 != null;
+				var8 |= var10.textureCoords != null;
 			}
 		}
 		this.vertexX = new int[this.vertexCount];
@@ -766,7 +768,7 @@ public class ModelLit extends Entity {
 			this.field2705 = new short[this.faceCount];
 		}
 		if (var8) {
-			this.field2682 = new byte[this.faceCount];
+			this.textureCoords = new byte[this.faceCount];
 		}
 		this.field2704 = new short[this.faceCount];
 		if (this.texturedFaceCount > 0) {
@@ -813,10 +815,10 @@ public class ModelLit extends Entity {
 						}
 					}
 					if (var8) {
-						if (var12.field2682 == null || var12.field2682[var13] == -1) {
-							this.field2682[this.faceCount] = -1;
+						if (var12.textureCoords == null || var12.textureCoords[var13] == -1) {
+							this.textureCoords[this.faceCount] = -1;
 						} else {
-							this.field2682[this.faceCount] = (byte) (var12.field2682[var13] + this.texturedFaceCount);
+							this.textureCoords[this.faceCount] = (byte) (var12.textureCoords[var13] + this.texturedFaceCount);
 						}
 					}
 					this.field2704[this.faceCount] = var12.field2704[var13];
@@ -929,7 +931,7 @@ public class ModelLit extends Entity {
 		this.faceVertexC = arg0.faceVertexC;
 		this.field2679 = arg0.field2679;
 		this.field2680 = arg0.field2680;
-		this.field2682 = arg0.field2682;
+		this.textureCoords = arg0.textureCoords;
 		this.field2684 = arg0.field2684;
 		this.field2687 = arg0.field2687;
 		this.field2688 = arg0.field2688;
@@ -973,7 +975,7 @@ public class ModelLit extends Entity {
 		var1.faceVertexC = this.faceVertexC;
 		var1.field2680 = this.field2680;
 		var1.field2709 = this.field2709;
-		var1.field2682 = this.field2682;
+		var1.textureCoords = this.textureCoords;
 		var1.field2704 = this.field2704;
 		var1.field2705 = this.field2705;
 		var1.field2684 = this.field2684;
@@ -1030,7 +1032,7 @@ public class ModelLit extends Entity {
 			var15.field2679 = this.field2679;
 			var15.field2680 = this.field2680;
 			var15.field2709 = this.field2709;
-			var15.field2682 = this.field2682;
+			var15.textureCoords = this.textureCoords;
 			var15.field2704 = this.field2704;
 			var15.field2705 = this.field2705;
 			var15.field2684 = this.field2684;
@@ -1455,11 +1457,11 @@ public class ModelLit extends Entity {
 		var8.faceColorA = new int[this.faceCount];
 		var8.faceColorB = new int[this.faceCount];
 		var8.faceColorC = new int[this.faceCount];
-		if (this.texturedFaceCount > 0 && this.field2682 != null) {
+		if (this.texturedFaceCount > 0 && this.textureCoords != null) {
 			int[] var9 = new int[this.texturedFaceCount];
 			for (int var10 = 0; var10 < this.faceCount; var10++) {
-				if (this.field2682[var10] != -1) {
-					var9[this.field2682[var10] & 0xFF]++;
+				if (this.textureCoords[var10] != -1) {
+					var9[this.textureCoords[var10] & 0xFF]++;
 				}
 			}
 			var8.field2738 = 0;
@@ -1468,26 +1470,26 @@ public class ModelLit extends Entity {
 					var8.field2738++;
 				}
 			}
-			var8.field2739 = new int[var8.field2738];
-			var8.field2774 = new int[var8.field2738];
-			var8.field2765 = new int[var8.field2738];
+			var8.texIndicesP = new int[var8.field2738];
+			var8.texIndicesM = new int[var8.field2738];
+			var8.texIndicesN = new int[var8.field2738];
 			int var12 = 0;
 			for (int var13 = 0; var13 < this.texturedFaceCount; var13++) {
 				if (var9[var13] > 0 && this.field2687[var13] == 0) {
-					var8.field2739[var12] = this.field2688[var13] & 0xFFFF;
-					var8.field2774[var12] = this.field2681[var13] & 0xFFFF;
-					var8.field2765[var12] = this.field2690[var13] & 0xFFFF;
+					var8.texIndicesP[var12] = this.field2688[var13] & 0xFFFF;
+					var8.texIndicesM[var12] = this.field2681[var13] & 0xFFFF;
+					var8.texIndicesN[var12] = this.field2690[var13] & 0xFFFF;
 					var9[var13] = var12++;
 				} else {
 					var9[var13] = -1;
 				}
 			}
-			var8.field2735 = new byte[this.faceCount];
+			var8.textureCoords = new byte[this.faceCount];
 			for (int var14 = 0; var14 < this.faceCount; var14++) {
-				if (this.field2682[var14] == -1) {
-					var8.field2735[var14] = -1;
+				if (this.textureCoords[var14] == -1) {
+					var8.textureCoords[var14] = -1;
 				} else {
-					var8.field2735[var14] = (byte) var9[this.field2682[var14] & 0xFF];
+					var8.textureCoords[var14] = (byte) var9[this.textureCoords[var14] & 0xFF];
 				}
 			}
 		}
@@ -1602,7 +1604,7 @@ public class ModelLit extends Entity {
 		var8.field2737 = this.field2684;
 		var8.field2742 = this.field2700;
 		var8.field2743 = this.field2701;
-		var8.field2718 = this.field2705;
+		var8.faceTextures = this.field2705;
 		return var8;
 	}
 

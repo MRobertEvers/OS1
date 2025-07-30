@@ -219,6 +219,7 @@ public class SpriteDataProvider {
 	}
 
 	@ObfuscatedName("ai.i(Lch;II)Z")
+	// Sprite decoding
 	public static boolean method728(Js5Index arg0, int arg1) {
 		byte[] var2 = arg0.fetchFile(arg1);
 		if (var2 == null) {
@@ -230,6 +231,7 @@ public class SpriteDataProvider {
 	}
 
 	@ObfuscatedName("a.s([BB)V")
+	// decode sprite decodeSprite
 	public static void method314(byte[] arg0) {
 		Packet var1 = new Packet(arg0);
 		var1.pos = arg0.length - 2;

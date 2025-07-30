@@ -58,10 +58,10 @@ public class ModelUnlit extends Entity {
 	public byte[] faceAlpha;
 
 	@ObfuscatedName("fo.h")
-	public byte[] field2735;
+	public byte[] textureCoords;
 
 	@ObfuscatedName("fo.x")
-	public short[] field2718;
+	public short[] faceTextures;
 
 	@ObfuscatedName("fo.p")
 	public byte field2737 = 0;
@@ -70,13 +70,13 @@ public class ModelUnlit extends Entity {
 	public int field2738 = 0;
 
 	@ObfuscatedName("fo.ac")
-	public int[] field2739;
+	public int[] texIndicesP;
 
 	@ObfuscatedName("fo.aa")
-	public int[] field2774;
+	public int[] texIndicesM;
 
 	@ObfuscatedName("fo.as")
-	public int[] field2765;
+	public int[] texIndicesN;
 
 	@ObfuscatedName("fo.am")
 	public int[][] field2742;
@@ -226,8 +226,8 @@ public class ModelUnlit extends Entity {
 					var3 = true;
 				}
 				var4 |= var8.faceAlpha != null;
-				var5 |= var8.field2718 != null;
-				var6 |= var8.field2735 != null;
+				var5 |= var8.faceTextures != null;
+				var6 |= var8.textureCoords != null;
 			}
 		}
 		this.vertexX = new int[this.vertexCount];
@@ -246,15 +246,15 @@ public class ModelUnlit extends Entity {
 			this.faceAlpha = new byte[this.field2780];
 		}
 		if (var5) {
-			this.field2718 = new short[this.field2780];
+			this.faceTextures = new short[this.field2780];
 		}
 		if (var6) {
-			this.field2735 = new byte[this.field2780];
+			this.textureCoords = new byte[this.field2780];
 		}
 		if (this.field2738 > 0) {
-			this.field2739 = new int[this.field2738];
-			this.field2774 = new int[this.field2738];
-			this.field2765 = new int[this.field2738];
+			this.texIndicesP = new int[this.field2738];
+			this.texIndicesM = new int[this.field2738];
+			this.texIndicesN = new int[this.field2738];
 		}
 		this.vertexCount = 0;
 		this.field2780 = 0;
@@ -280,25 +280,25 @@ public class ModelUnlit extends Entity {
 						this.faceAlpha[this.field2780] = var10.faceAlpha[var11];
 					}
 					if (var5) {
-						if (var10.field2718 == null) {
-							this.field2718[this.field2780] = -1;
+						if (var10.faceTextures == null) {
+							this.faceTextures[this.field2780] = -1;
 						} else {
-							this.field2718[this.field2780] = var10.field2718[var11];
+							this.faceTextures[this.field2780] = var10.faceTextures[var11];
 						}
 					}
 					if (var6) {
-						if (var10.field2735 == null || var10.field2735[var11] == -1) {
-							this.field2735[this.field2780] = -1;
+						if (var10.textureCoords == null || var10.textureCoords[var11] == -1) {
+							this.textureCoords[this.field2780] = -1;
 						} else {
-							this.field2735[this.field2780] = (byte) (var10.field2735[var11] + this.field2738);
+							this.textureCoords[this.field2780] = (byte) (var10.textureCoords[var11] + this.field2738);
 						}
 					}
 					this.field2780++;
 				}
 				for (int var12 = 0; var12 < var10.field2738; var12++) {
-					this.field2739[this.field2738] = var10.field2739[var12] + this.vertexCount;
-					this.field2774[this.field2738] = var10.field2774[var12] + this.vertexCount;
-					this.field2765[this.field2738] = var10.field2765[var12] + this.vertexCount;
+					this.texIndicesP[this.field2738] = var10.texIndicesP[var12] + this.vertexCount;
+					this.texIndicesM[this.field2738] = var10.texIndicesM[var12] + this.vertexCount;
+					this.texIndicesN[this.field2738] = var10.texIndicesN[var12] + this.vertexCount;
 					this.field2738++;
 				}
 				for (int var13 = 0; var13 < var10.vertexCount; var13++) {
@@ -344,12 +344,12 @@ public class ModelUnlit extends Entity {
 			var15.faceColorC = this.faceColorC;
 			var15.facePriority = this.facePriority;
 			var15.faceAlpha = this.faceAlpha;
-			var15.field2735 = this.field2735;
-			var15.field2718 = this.field2718;
+			var15.textureCoords = this.textureCoords;
+			var15.faceTextures = this.faceTextures;
 			var15.field2737 = this.field2737;
-			var15.field2739 = this.field2739;
-			var15.field2774 = this.field2774;
-			var15.field2765 = this.field2765;
+			var15.texIndicesP = this.texIndicesP;
+			var15.texIndicesM = this.texIndicesM;
+			var15.texIndicesN = this.texIndicesN;
 			var15.field2742 = this.field2742;
 			var15.field2743 = this.field2743;
 			var15.picking = this.picking;
@@ -444,12 +444,12 @@ public class ModelUnlit extends Entity {
 		model.faceColorB = this.faceColorB;
 		model.faceColorC = this.faceColorC;
 		model.facePriority = this.facePriority;
-		model.field2735 = this.field2735;
-		model.field2718 = this.field2718;
+		model.textureCoords = this.textureCoords;
+		model.faceTextures = this.faceTextures;
 		model.field2737 = this.field2737;
-		model.field2739 = this.field2739;
-		model.field2774 = this.field2774;
-		model.field2765 = this.field2765;
+		model.texIndicesP = this.texIndicesP;
+		model.texIndicesM = this.texIndicesM;
+		model.texIndicesN = this.texIndicesN;
 		model.field2742 = this.field2742;
 		model.field2743 = this.field2743;
 		model.picking = this.picking;
@@ -1237,27 +1237,27 @@ public class ModelUnlit extends Entity {
 			Pix3D.trans = this.faceAlpha[face] & 0xFF;
 		}
 
-		if (this.field2718 != null && this.field2718[face] != -1) {
+		if (this.faceTextures != null && this.faceTextures[face] != -1) {
 			int var6;
 			int var7;
 			int var8;
-			if (this.field2735 == null || this.field2735[face] == -1) {
+			if (this.textureCoords == null || this.textureCoords[face] == -1) {
 				var6 = a;
 				var7 = b;
 				var8 = c;
 			} else {
-				int var5 = this.field2735[face] & 0xFF;
-				var6 = this.field2739[var5];
-				var7 = this.field2774[var5];
-				var8 = this.field2765[var5];
+				int var5 = this.textureCoords[face] & 0xFF;
+				var6 = this.texIndicesP[var5];
+				var7 = this.texIndicesM[var5];
+				var8 = this.texIndicesN[var5];
 			}
 			if (this.faceColorC[face] == -1) {
-				Pix3D.method2769(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], this.faceColorA[face], this.faceColorA[face], this.faceColorA[face], vertexViewSpaceX[var6], vertexViewSpaceX[var7], vertexViewSpaceX[var8], vertexViewSpaceY[var6], vertexViewSpaceY[var7], vertexViewSpaceY[var8], vertexViewSpaceZ[var6], vertexViewSpaceZ[var7], vertexViewSpaceZ[var8], this.field2718[face]);
+				Pix3D.textureTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], this.faceColorA[face], this.faceColorA[face], this.faceColorA[face], vertexViewSpaceX[var6], vertexViewSpaceX[var7], vertexViewSpaceX[var8], vertexViewSpaceY[var6], vertexViewSpaceY[var7], vertexViewSpaceY[var8], vertexViewSpaceZ[var6], vertexViewSpaceZ[var7], vertexViewSpaceZ[var8], this.faceTextures[face]);
 			} else {
-				Pix3D.method2769(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], this.faceColorA[face], this.faceColorB[face], this.faceColorC[face], vertexViewSpaceX[var6], vertexViewSpaceX[var7], vertexViewSpaceX[var8], vertexViewSpaceY[var6], vertexViewSpaceY[var7], vertexViewSpaceY[var8], vertexViewSpaceZ[var6], vertexViewSpaceZ[var7], vertexViewSpaceZ[var8], this.field2718[face]);
+				Pix3D.textureTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], this.faceColorA[face], this.faceColorB[face], this.faceColorC[face], vertexViewSpaceX[var6], vertexViewSpaceX[var7], vertexViewSpaceX[var8], vertexViewSpaceY[var6], vertexViewSpaceY[var7], vertexViewSpaceY[var8], vertexViewSpaceZ[var6], vertexViewSpaceZ[var7], vertexViewSpaceZ[var8], this.faceTextures[face]);
 			}
 		} else if (this.faceColorC[face] == -1) {
-			Pix3D.method2767(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], palette[this.faceColorA[face]]);
+			Pix3D.flatTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], palette[this.faceColorA[face]]);
 		} else {
 			Pix3D.gouraudTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], this.faceColorA[face], this.faceColorB[face], this.faceColorC[face]);
 		}
@@ -1353,27 +1353,27 @@ public class ModelUnlit extends Entity {
 			if (var26 < 0 || var27 < 0 || var28 < 0 || var26 > Pix3D.boundX || var27 > Pix3D.boundX || var28 > Pix3D.boundX) {
 				Pix3D.hclip = true;
 			}
-			if (this.field2718 != null && this.field2718[arg0] != -1) {
+			if (this.faceTextures != null && this.faceTextures[arg0] != -1) {
 				int var33;
 				int var34;
 				int var35;
-				if (this.field2735 == null || this.field2735[arg0] == -1) {
+				if (this.textureCoords == null || this.textureCoords[arg0] == -1) {
 					var33 = var5;
 					var34 = var6;
 					var35 = var7;
 				} else {
-					int var32 = this.field2735[arg0] & 0xFF;
-					var33 = this.field2739[var32];
-					var34 = this.field2774[var32];
-					var35 = this.field2765[var32];
+					int var32 = this.textureCoords[arg0] & 0xFF;
+					var33 = this.texIndicesP[var32];
+					var34 = this.texIndicesM[var32];
+					var35 = this.texIndicesN[var32];
 				}
 				if (this.faceColorC[arg0] == -1) {
-					Pix3D.method2769(var29, var30, var31, var26, var27, var28, this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], vertexViewSpaceX[var33], vertexViewSpaceX[var34], vertexViewSpaceX[var35], vertexViewSpaceY[var33], vertexViewSpaceY[var34], vertexViewSpaceY[var35], vertexViewSpaceZ[var33], vertexViewSpaceZ[var34], vertexViewSpaceZ[var35], this.field2718[arg0]);
+					Pix3D.textureTriangle(var29, var30, var31, var26, var27, var28, this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], vertexViewSpaceX[var33], vertexViewSpaceX[var34], vertexViewSpaceX[var35], vertexViewSpaceY[var33], vertexViewSpaceY[var34], vertexViewSpaceY[var35], vertexViewSpaceZ[var33], vertexViewSpaceZ[var34], vertexViewSpaceZ[var35], this.faceTextures[arg0]);
 				} else {
-					Pix3D.method2769(var29, var30, var31, var26, var27, var28, clippedColor[0], clippedColor[1], clippedColor[2], vertexViewSpaceX[var33], vertexViewSpaceX[var34], vertexViewSpaceX[var35], vertexViewSpaceY[var33], vertexViewSpaceY[var34], vertexViewSpaceY[var35], vertexViewSpaceZ[var33], vertexViewSpaceZ[var34], vertexViewSpaceZ[var35], this.field2718[arg0]);
+					Pix3D.textureTriangle(var29, var30, var31, var26, var27, var28, clippedColor[0], clippedColor[1], clippedColor[2], vertexViewSpaceX[var33], vertexViewSpaceX[var34], vertexViewSpaceX[var35], vertexViewSpaceY[var33], vertexViewSpaceY[var34], vertexViewSpaceY[var35], vertexViewSpaceZ[var33], vertexViewSpaceZ[var34], vertexViewSpaceZ[var35], this.faceTextures[arg0]);
 				}
 			} else if (this.faceColorC[arg0] == -1) {
-				Pix3D.method2767(var29, var30, var31, var26, var27, var28, palette[this.faceColorA[arg0]]);
+				Pix3D.flatTriangle(var29, var30, var31, var26, var27, var28, palette[this.faceColorA[arg0]]);
 			} else {
 				Pix3D.gouraudTriangle(var29, var30, var31, var26, var27, var28, clippedColor[0], clippedColor[1], clippedColor[2]);
 			}
@@ -1381,32 +1381,32 @@ public class ModelUnlit extends Entity {
 			if (var26 < 0 || var27 < 0 || var28 < 0 || var26 > Pix3D.boundX || var27 > Pix3D.boundX || var28 > Pix3D.boundX || clippedX[3] < 0 || clippedX[3] > Pix3D.boundX) {
 				Pix3D.hclip = true;
 			}
-			if (this.field2718 != null && this.field2718[arg0] != -1) {
+			if (this.faceTextures != null && this.faceTextures[arg0] != -1) {
 				int var37;
 				int var38;
 				int var39;
-				if (this.field2735 == null || this.field2735[arg0] == -1) {
+				if (this.textureCoords == null || this.textureCoords[arg0] == -1) {
 					var37 = var5;
 					var38 = var6;
 					var39 = var7;
 				} else {
-					int var36 = this.field2735[arg0] & 0xFF;
-					var37 = this.field2739[var36];
-					var38 = this.field2774[var36];
-					var39 = this.field2765[var36];
+					int var36 = this.textureCoords[arg0] & 0xFF;
+					var37 = this.texIndicesP[var36];
+					var38 = this.texIndicesM[var36];
+					var39 = this.texIndicesN[var36];
 				}
-				short var40 = this.field2718[arg0];
+				short var40 = this.faceTextures[arg0];
 				if (this.faceColorC[arg0] == -1) {
-					Pix3D.method2769(var29, var30, var31, var26, var27, var28, this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
-					Pix3D.method2769(var29, var31, clippedY[3], var26, var28, clippedX[3], this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
+					Pix3D.textureTriangle(var29, var30, var31, var26, var27, var28, this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
+					Pix3D.textureTriangle(var29, var31, clippedY[3], var26, var28, clippedX[3], this.faceColorA[arg0], this.faceColorA[arg0], this.faceColorA[arg0], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
 				} else {
-					Pix3D.method2769(var29, var30, var31, var26, var27, var28, clippedColor[0], clippedColor[1], clippedColor[2], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
-					Pix3D.method2769(var29, var31, clippedY[3], var26, var28, clippedX[3], clippedColor[0], clippedColor[2], clippedColor[3], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
+					Pix3D.textureTriangle(var29, var30, var31, var26, var27, var28, clippedColor[0], clippedColor[1], clippedColor[2], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
+					Pix3D.textureTriangle(var29, var31, clippedY[3], var26, var28, clippedX[3], clippedColor[0], clippedColor[2], clippedColor[3], vertexViewSpaceX[var37], vertexViewSpaceX[var38], vertexViewSpaceX[var39], vertexViewSpaceY[var37], vertexViewSpaceY[var38], vertexViewSpaceY[var39], vertexViewSpaceZ[var37], vertexViewSpaceZ[var38], vertexViewSpaceZ[var39], var40);
 				}
 			} else if (this.faceColorC[arg0] == -1) {
 				int var41 = palette[this.faceColorA[arg0]];
-				Pix3D.method2767(var29, var30, var31, var26, var27, var28, var41);
-				Pix3D.method2767(var29, var31, clippedY[3], var26, var28, clippedX[3], var41);
+				Pix3D.flatTriangle(var29, var30, var31, var26, var27, var28, var41);
+				Pix3D.flatTriangle(var29, var31, clippedY[3], var26, var28, clippedX[3], var41);
 			} else {
 				Pix3D.gouraudTriangle(var29, var30, var31, var26, var27, var28, clippedColor[0], clippedColor[1], clippedColor[2]);
 				Pix3D.gouraudTriangle(var29, var31, clippedY[3], var26, var28, clippedX[3], clippedColor[0], clippedColor[2], clippedColor[3]);

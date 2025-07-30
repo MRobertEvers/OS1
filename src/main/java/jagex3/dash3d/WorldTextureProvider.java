@@ -41,8 +41,12 @@ public class WorldTextureProvider implements TextureProvider {
 
 		this.field719 = new Texture[textureJs5.getFileCount(0)];
 		for (int i = 0; i < count; i++) {
-			Packet buf = new Packet(textureJs5.getFile(0, files[i]));
-			this.field719[files[i]] = new Texture(buf);
+			int fileid = files[i];
+			if (fileid == 8) {
+				int ii = 0;
+			}
+			Packet buf = new Packet(textureJs5.getFile(0, fileid));
+			this.field719[fileid] = new Texture(buf);
 		}
 	}
 
@@ -54,6 +58,9 @@ public class WorldTextureProvider implements TextureProvider {
 
 	@ObfuscatedName("bi.r(II)[I")
 	public int[] getTexels(int textureId) {
+		if (textureId == 8) {
+			Integer i = 0;
+		}
 		Texture var2 = this.field719[textureId];
 		if (var2 != null) {
 			if (var2.field1694 != null) {
