@@ -871,22 +871,22 @@ public class ModelUnlit extends Entity {
 	}
 
 	@ObfuscatedName("fo.z(IIIIIIIII)V")
-	public void draw(int arg0, int arg1, int arg2, int cosPitch, int arg4, int arg5, int arg6, int arg7, int typecode) {
+	public void draw(int unknown, int sinPitch, int cosPitch, int sinYaw, int cosYaw, int scene_x, int scene_y, int scene_z, int typecode) {
 		tmpDepthFaceCount[0] = -1;
 
 		if (this.field2745 != 1) {
 			this.method3002();
 		}
 
-		int var10 = arg4 * arg7 - cosPitch * arg5 >> 16;
-		int var11 = arg1 * arg6 + arg2 * var10 >> 16;
-		int var12 = this.field2747 * arg2 >> 16;
+		int var10 = cosYaw * scene_z - sinYaw * scene_x >> 16;
+		int var11 = sinPitch * scene_y + cosPitch * var10 >> 16;
+		int var12 = this.field2747 * cosPitch >> 16;
 		int var13 = var11 + var12;
 		if (var13 <= 50 || var11 >= 3500) {
 			return;
 		}
 
-		int var14 = cosPitch * arg7 + arg4 * arg5 >> 16;
+		int var14 = sinYaw * scene_z + cosYaw * scene_x >> 16;
 		int var15 = var14 - this.field2747 << 9;
 		if (var15 / var13 >= Pix3D.field2534) {
 			return;
@@ -897,20 +897,20 @@ public class ModelUnlit extends Entity {
 			return;
 		}
 
-		int var17 = arg2 * arg6 - arg1 * var10 >> 16;
-		int var18 = this.field2747 * arg1 >> 16;
+		int var17 = cosPitch * scene_y - sinPitch * var10 >> 16;
+		int var18 = this.field2747 * sinPitch >> 16;
 		int var19 = var17 + var18 << 9;
 		if (var19 / var13 <= Pix3D.field2535) {
 			return;
 		}
 
-		int var20 = (this.minY * arg2 >> 16) + var18;
+		int var20 = (this.minY * cosPitch >> 16) + var18;
 		int var21 = var17 - var20 << 9;
 		if (var21 / var13 >= Pix3D.field2537) {
 			return;
 		}
 
-		int var22 = (this.minY * arg1 >> 16) + var12;
+		int var22 = (this.minY * sinPitch >> 16) + var12;
 		boolean clipped = false;
 		boolean var24 = false;
 		if (var11 - var22 <= 50) {
@@ -959,9 +959,9 @@ public class ModelUnlit extends Entity {
 
 		int var36 = 0;
 		int var37 = 0;
-		if (arg0 != 0) {
-			var36 = sinTable[arg0];
-			var37 = cosTable[arg0];
+		if (unknown != 0) {
+			var36 = sinTable[unknown];
+			var37 = cosTable[unknown];
 		}
 
 		for (int var38 = 0; var38 < this.vertexCount; var38++) {
@@ -969,19 +969,19 @@ public class ModelUnlit extends Entity {
 			int var40 = this.vertexY[var38];
 			int var41 = this.vertexZ[var38];
 
-			if (arg0 != 0) {
+			if (unknown != 0) {
 				int var42 = var36 * var41 + var37 * var39 >> 16;
 				var41 = var37 * var41 - var36 * var39 >> 16;
 				var39 = var42;
 			}
 
-			int var43 = arg5 + var39;
-			int var44 = arg6 + var40;
-			int var45 = arg7 + var41;
-			int var46 = cosPitch * var45 + arg4 * var43 >> 16;
-			int var47 = arg4 * var45 - cosPitch * var43 >> 16;
-			int var49 = arg2 * var44 - arg1 * var47 >> 16;
-			int var50 = arg1 * var44 + arg2 * var47 >> 16;
+			int var43 = scene_x + var39;
+			int var44 = scene_y + var40;
+			int var45 = scene_z + var41;
+			int var46 = sinYaw * var45 + cosYaw * var43 >> 16;
+			int var47 = cosYaw * var45 - sinYaw * var43 >> 16;
+			int var49 = cosPitch * var44 - sinPitch * var47 >> 16;
+			int var50 = sinPitch * var44 + cosPitch * var47 >> 16;
 			vertexScreenZ[var38] = var50 - var11;
 
 			if (var50 >= 50) {
@@ -1257,7 +1257,7 @@ public class ModelUnlit extends Entity {
 				Pix3D.textureTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], this.faceColorA[face], this.faceColorB[face], this.faceColorC[face], vertexViewSpaceX[var6], vertexViewSpaceX[var7], vertexViewSpaceX[var8], vertexViewSpaceY[var6], vertexViewSpaceY[var7], vertexViewSpaceY[var8], vertexViewSpaceZ[var6], vertexViewSpaceZ[var7], vertexViewSpaceZ[var8], this.faceTextures[face]);
 
 				// This will draw the white triangle to represent the texture pnm.
-				// Pix3D.flatTriangle(vertexScreenY[var6], vertexScreenY[var7], vertexScreenY[var8], vertexScreenX[var6], vertexScreenX[var7], vertexScreenX[var8], palette[this.faceColorA[face]]);
+				Pix3D.flatTriangle(vertexScreenY[var6], vertexScreenY[var7], vertexScreenY[var8], vertexScreenX[var6], vertexScreenX[var7], vertexScreenX[var8], palette[this.faceColorA[face]]);
 			}
 		} else if (this.faceColorC[face] == -1) {
 			Pix3D.flatTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], palette[this.faceColorA[face]]);

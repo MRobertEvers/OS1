@@ -1268,32 +1268,32 @@ public class Pix3D extends Pix2D {
 
 	@ObfuscatedName("fx.cp(IIIIIIIIIIIIIIIIIII)V")
 	// textureTriangle?
-	public static final void textureTriangle(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14, int arg15, int arg16, int arg17, int arg18) {
-		int[] var19 = textureProvider.getTexels(arg18);
+	public static final void textureTriangle(int screen_x0, int screen_x1, int screen_x2, int screen_y0, int screen_y1, int screen_y2, int color_a, int color_b, int color_c, int ortho_xp, int ortho_xm, int ortho_xn, int ortho_yp, int ortho_ym, int ortho_yn, int ortho_zp, int ortho_zm, int ortho_zn, int texture) {
+		int[] var19 = textureProvider.getTexels(texture);
 		if (var19 == null) {
-			int var20 = textureProvider.getAverageRgb(arg18);
-			gouraudTriangle(arg0, arg1, arg2, arg3, arg4, arg5, method2773(var20, arg6), method2773(var20, arg7), method2773(var20, arg8));
+			int var20 = textureProvider.getAverageRgb(texture);
+			gouraudTriangle(screen_x0, screen_x1, screen_x2, screen_y0, screen_y1, screen_y2, method2773(var20, color_a), method2773(var20, color_b), method2773(var20, color_c));
 			return;
 		}
-		lowDetail = textureProvider.isLowDetail(arg18);
-		opaque = textureProvider.isOpaque(arg18);
-		int var21 = arg4 - arg3;
-		int var22 = arg1 - arg0;
-		int var23 = arg5 - arg3;
-		int var24 = arg2 - arg0;
-		int var25 = arg7 - arg6;
-		int var26 = arg8 - arg6;
+		lowDetail = textureProvider.isLowDetail(texture);
+		opaque = textureProvider.isOpaque(texture);
+		int var21 = screen_y1 - screen_y0;
+		int var22 = screen_x1 - screen_x0;
+		int var23 = screen_y2 - screen_y0;
+		int var24 = screen_x2 - screen_x0;
+		int var25 = color_b - color_a;
+		int var26 = color_c - color_a;
 		int var27 = 0;
-		if (arg0 != arg1) {
-			var27 = (arg4 - arg3 << 16) / (arg1 - arg0);
+		if (screen_x0 != screen_x1) {
+			var27 = (screen_y1 - screen_y0 << 16) / (screen_x1 - screen_x0);
 		}
 		int var28 = 0;
-		if (arg1 != arg2) {
-			var28 = (arg5 - arg4 << 16) / (arg2 - arg1);
+		if (screen_x1 != screen_x2) {
+			var28 = (screen_y2 - screen_y1 << 16) / (screen_x2 - screen_x1);
 		}
 		int var29 = 0;
-		if (arg0 != arg2) {
-			var29 = (arg3 - arg5 << 16) / (arg0 - arg2);
+		if (screen_x0 != screen_x2) {
+			var29 = (screen_y0 - screen_y2 << 16) / (screen_x0 - screen_x2);
 		}
 		int var30 = var21 * var24 - var22 * var23;
 		if (var30 == 0) {
@@ -1301,52 +1301,52 @@ public class Pix3D extends Pix2D {
 		}
 		int var31 = (var24 * var25 - var22 * var26 << 9) / var30;
 		int var32 = (var21 * var26 - var23 * var25 << 9) / var30;
-		int var33 = arg9 - arg10;
-		int var34 = arg12 - arg13;
-		int var35 = arg15 - arg16;
-		int var36 = arg11 - arg9;
-		int var37 = arg14 - arg12;
-		int var38 = arg17 - arg15;
-		int var39 = arg12 * var36 - arg9 * var37 << 14;
-		int var40 = arg15 * var37 - arg12 * var38 << 8;
-		int var41 = arg9 * var38 - arg15 * var36 << 5;
-		int var42 = arg12 * var33 - arg9 * var34 << 14;
-		int var43 = arg15 * var34 - arg12 * var35 << 8;
-		int var44 = arg9 * var35 - arg15 * var33 << 5;
+		int var33 = ortho_xp - ortho_xm;
+		int var34 = ortho_yp - ortho_ym;
+		int var35 = ortho_zp - ortho_zm;
+		int var36 = ortho_xn - ortho_xp;
+		int var37 = ortho_yn - ortho_yp;
+		int var38 = ortho_zn - ortho_zp;
+		int var39 = ortho_yp * var36 - ortho_xp * var37 << 14;
+		int var40 = ortho_zp * var37 - ortho_yp * var38 << 8;
+		int var41 = ortho_xp * var38 - ortho_zp * var36 << 5;
+		int var42 = ortho_yp * var33 - ortho_xp * var34 << 14;
+		int var43 = ortho_zp * var34 - ortho_yp * var35 << 8;
+		int var44 = ortho_xp * var35 - ortho_zp * var33 << 5;
 		int var45 = var34 * var36 - var33 * var37 << 14;
 		int var46 = var35 * var37 - var34 * var38 << 8;
 		int var47 = var33 * var38 - var35 * var36 << 5;
-		if (arg0 <= arg1 && arg0 <= arg2) {
-			if (arg0 < field2532) {
-				if (arg1 > field2532) {
-					arg1 = field2532;
+		if (screen_x0 <= screen_x1 && screen_x0 <= screen_x2) {
+			if (screen_x0 < field2532) {
+				if (screen_x1 > field2532) {
+					screen_x1 = field2532;
 				}
-				if (arg2 > field2532) {
-					arg2 = field2532;
+				if (screen_x2 > field2532) {
+					screen_x2 = field2532;
 				}
-				int var48 = (arg6 << 9) - arg3 * var31 + var31;
-				if (arg1 < arg2) {
+				int var48 = (color_a << 9) - screen_y0 * var31 + var31;
+				if (screen_x1 < screen_x2) {
 					int var49;
-					int var50 = var49 = arg3 << 16;
-					if (arg0 < 0) {
-						var50 -= arg0 * var29;
-						var49 -= arg0 * var27;
-						var48 -= arg0 * var32;
-						arg0 = 0;
+					int var50 = var49 = screen_y0 << 16;
+					if (screen_x0 < 0) {
+						var50 -= screen_x0 * var29;
+						var49 -= screen_x0 * var27;
+						var48 -= screen_x0 * var32;
+						screen_x0 = 0;
 					}
-					int var51 = arg4 << 16;
-					if (arg1 < 0) {
-						var51 -= arg1 * var28;
-						arg1 = 0;
+					int var51 = screen_y1 << 16;
+					if (screen_x1 < 0) {
+						var51 -= screen_x1 * var28;
+						screen_x1 = 0;
 					}
-					int var52 = arg0 - centerY;
+					int var52 = screen_x0 - centerY;
 					int var53 = var41 * var52 + var39;
 					int var54 = var44 * var52 + var42;
 					int var55 = var47 * var52 + var45;
-					if (arg0 != arg1 && var29 < var27 || arg0 == arg1 && var29 > var28) {
-						int var56 = arg2 - arg1;
-						int var57 = arg1 - arg0;
-						int var58 = field2527[arg0];
+					if (screen_x0 != screen_x1 && var29 < var27 || screen_x0 == screen_x1 && var29 > var28) {
+						int var56 = screen_x2 - screen_x1;
+						int var57 = screen_x1 - screen_x0;
+						int var58 = field2527[screen_x0];
 						while (true) {
 							var57--;
 							if (var57 < 0) {
@@ -1355,7 +1355,7 @@ public class Pix3D extends Pix2D {
 									if (var56 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var58, var50 >> 16, var51 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var58, var50 >> 16, var51 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
 									var50 += var29;
 									var51 += var28;
 									var48 += var32;
@@ -1365,7 +1365,7 @@ public class Pix3D extends Pix2D {
 									var55 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var58, var50 >> 16, var49 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var58, var50 >> 16, var49 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
 							var50 += var29;
 							var49 += var27;
 							var48 += var32;
@@ -1375,9 +1375,9 @@ public class Pix3D extends Pix2D {
 							var55 += var47;
 						}
 					} else {
-						int var59 = arg2 - arg1;
-						int var60 = arg1 - arg0;
-						int var61 = field2527[arg0];
+						int var59 = screen_x2 - screen_x1;
+						int var60 = screen_x1 - screen_x0;
+						int var61 = field2527[screen_x0];
 						while (true) {
 							var60--;
 							if (var60 < 0) {
@@ -1386,7 +1386,7 @@ public class Pix3D extends Pix2D {
 									if (var59 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var61, var51 >> 16, var50 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var61, var51 >> 16, var50 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
 									var50 += var29;
 									var51 += var28;
 									var48 += var32;
@@ -1396,7 +1396,7 @@ public class Pix3D extends Pix2D {
 									var55 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var61, var49 >> 16, var50 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var61, var49 >> 16, var50 >> 16, var48, var31, var53, var54, var55, var40, var43, var46);
 							var50 += var29;
 							var49 += var27;
 							var48 += var32;
@@ -1408,26 +1408,26 @@ public class Pix3D extends Pix2D {
 					}
 				} else {
 					int var62;
-					int var63 = var62 = arg3 << 16;
-					if (arg0 < 0) {
-						var63 -= arg0 * var29;
-						var62 -= arg0 * var27;
-						var48 -= arg0 * var32;
-						arg0 = 0;
+					int var63 = var62 = screen_y0 << 16;
+					if (screen_x0 < 0) {
+						var63 -= screen_x0 * var29;
+						var62 -= screen_x0 * var27;
+						var48 -= screen_x0 * var32;
+						screen_x0 = 0;
 					}
-					int var64 = arg5 << 16;
-					if (arg2 < 0) {
-						var64 -= arg2 * var28;
-						arg2 = 0;
+					int var64 = screen_y2 << 16;
+					if (screen_x2 < 0) {
+						var64 -= screen_x2 * var28;
+						screen_x2 = 0;
 					}
-					int var65 = arg0 - centerY;
+					int var65 = screen_x0 - centerY;
 					int var66 = var41 * var65 + var39;
 					int var67 = var44 * var65 + var42;
 					int var68 = var47 * var65 + var45;
-					if ((arg0 == arg2 || var29 >= var27) && (arg0 != arg2 || var28 <= var27)) {
-						int var72 = arg1 - arg2;
-						int var73 = arg2 - arg0;
-						int var74 = field2527[arg0];
+					if ((screen_x0 == screen_x2 || var29 >= var27) && (screen_x0 != screen_x2 || var28 <= var27)) {
+						int var72 = screen_x1 - screen_x2;
+						int var73 = screen_x2 - screen_x0;
+						int var74 = field2527[screen_x0];
 						while (true) {
 							var73--;
 							if (var73 < 0) {
@@ -1436,7 +1436,7 @@ public class Pix3D extends Pix2D {
 									if (var72 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var74, var62 >> 16, var64 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var74, var62 >> 16, var64 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
 									var64 += var28;
 									var62 += var27;
 									var48 += var32;
@@ -1446,7 +1446,7 @@ public class Pix3D extends Pix2D {
 									var68 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var74, var62 >> 16, var63 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var74, var62 >> 16, var63 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
 							var63 += var29;
 							var62 += var27;
 							var48 += var32;
@@ -1456,9 +1456,9 @@ public class Pix3D extends Pix2D {
 							var68 += var47;
 						}
 					} else {
-						int var69 = arg1 - arg2;
-						int var70 = arg2 - arg0;
-						int var71 = field2527[arg0];
+						int var69 = screen_x1 - screen_x2;
+						int var70 = screen_x2 - screen_x0;
+						int var71 = field2527[screen_x0];
 						while (true) {
 							var70--;
 							if (var70 < 0) {
@@ -1467,7 +1467,7 @@ public class Pix3D extends Pix2D {
 									if (var69 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var71, var64 >> 16, var62 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var71, var64 >> 16, var62 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
 									var64 += var28;
 									var62 += var27;
 									var48 += var32;
@@ -1477,7 +1477,7 @@ public class Pix3D extends Pix2D {
 									var68 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var71, var63 >> 16, var62 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var71, var63 >> 16, var62 >> 16, var48, var31, var66, var67, var68, var40, var43, var46);
 							var63 += var29;
 							var62 += var27;
 							var48 += var32;
@@ -1489,37 +1489,37 @@ public class Pix3D extends Pix2D {
 					}
 				}
 			}
-		} else if (arg1 <= arg2) {
-			if (arg1 < field2532) {
-				if (arg2 > field2532) {
-					arg2 = field2532;
+		} else if (screen_x1 <= screen_x2) {
+			if (screen_x1 < field2532) {
+				if (screen_x2 > field2532) {
+					screen_x2 = field2532;
 				}
-				if (arg0 > field2532) {
-					arg0 = field2532;
+				if (screen_x0 > field2532) {
+					screen_x0 = field2532;
 				}
-				int var75 = (arg7 << 9) - arg4 * var31 + var31;
-				if (arg2 < arg0) {
+				int var75 = (color_b << 9) - screen_y1 * var31 + var31;
+				if (screen_x2 < screen_x0) {
 					int var76;
-					int var77 = var76 = arg4 << 16;
-					if (arg1 < 0) {
-						var77 -= arg1 * var27;
-						var76 -= arg1 * var28;
-						var75 -= arg1 * var32;
-						arg1 = 0;
+					int var77 = var76 = screen_y1 << 16;
+					if (screen_x1 < 0) {
+						var77 -= screen_x1 * var27;
+						var76 -= screen_x1 * var28;
+						var75 -= screen_x1 * var32;
+						screen_x1 = 0;
 					}
-					int var78 = arg5 << 16;
-					if (arg2 < 0) {
-						var78 -= arg2 * var29;
-						arg2 = 0;
+					int var78 = screen_y2 << 16;
+					if (screen_x2 < 0) {
+						var78 -= screen_x2 * var29;
+						screen_x2 = 0;
 					}
-					int var79 = arg1 - centerY;
+					int var79 = screen_x1 - centerY;
 					int var80 = var41 * var79 + var39;
 					int var81 = var44 * var79 + var42;
 					int var82 = var47 * var79 + var45;
-					if (arg1 != arg2 && var27 < var28 || arg1 == arg2 && var27 > var29) {
-						int var83 = arg0 - arg2;
-						int var84 = arg2 - arg1;
-						int var85 = field2527[arg1];
+					if (screen_x1 != screen_x2 && var27 < var28 || screen_x1 == screen_x2 && var27 > var29) {
+						int var83 = screen_x0 - screen_x2;
+						int var84 = screen_x2 - screen_x1;
+						int var85 = field2527[screen_x1];
 						while (true) {
 							var84--;
 							if (var84 < 0) {
@@ -1528,7 +1528,7 @@ public class Pix3D extends Pix2D {
 									if (var83 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var85, var77 >> 16, var78 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var85, var77 >> 16, var78 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
 									var77 += var27;
 									var78 += var29;
 									var75 += var32;
@@ -1538,7 +1538,7 @@ public class Pix3D extends Pix2D {
 									var82 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var85, var77 >> 16, var76 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var85, var77 >> 16, var76 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
 							var77 += var27;
 							var76 += var28;
 							var75 += var32;
@@ -1548,9 +1548,9 @@ public class Pix3D extends Pix2D {
 							var82 += var47;
 						}
 					} else {
-						int var86 = arg0 - arg2;
-						int var87 = arg2 - arg1;
-						int var88 = field2527[arg1];
+						int var86 = screen_x0 - screen_x2;
+						int var87 = screen_x2 - screen_x1;
+						int var88 = field2527[screen_x1];
 						while (true) {
 							var87--;
 							if (var87 < 0) {
@@ -1559,7 +1559,7 @@ public class Pix3D extends Pix2D {
 									if (var86 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var88, var78 >> 16, var77 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var88, var78 >> 16, var77 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
 									var77 += var27;
 									var78 += var29;
 									var75 += var32;
@@ -1569,7 +1569,7 @@ public class Pix3D extends Pix2D {
 									var82 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var88, var76 >> 16, var77 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var88, var76 >> 16, var77 >> 16, var75, var31, var80, var81, var82, var40, var43, var46);
 							var77 += var27;
 							var76 += var28;
 							var75 += var32;
@@ -1581,26 +1581,26 @@ public class Pix3D extends Pix2D {
 					}
 				} else {
 					int var89;
-					int var90 = var89 = arg4 << 16;
-					if (arg1 < 0) {
-						var90 -= arg1 * var27;
-						var89 -= arg1 * var28;
-						var75 -= arg1 * var32;
-						arg1 = 0;
+					int var90 = var89 = screen_y1 << 16;
+					if (screen_x1 < 0) {
+						var90 -= screen_x1 * var27;
+						var89 -= screen_x1 * var28;
+						var75 -= screen_x1 * var32;
+						screen_x1 = 0;
 					}
-					int var91 = arg3 << 16;
-					if (arg0 < 0) {
-						var91 -= arg0 * var29;
-						arg0 = 0;
+					int var91 = screen_y0 << 16;
+					if (screen_x0 < 0) {
+						var91 -= screen_x0 * var29;
+						screen_x0 = 0;
 					}
-					int var92 = arg1 - centerY;
+					int var92 = screen_x1 - centerY;
 					int var93 = var41 * var92 + var39;
 					int var94 = var44 * var92 + var42;
 					int var95 = var47 * var92 + var45;
 					if (var27 < var28) {
-						int var96 = arg2 - arg0;
-						int var97 = arg0 - arg1;
-						int var98 = field2527[arg1];
+						int var96 = screen_x2 - screen_x0;
+						int var97 = screen_x0 - screen_x1;
+						int var98 = field2527[screen_x1];
 						while (true) {
 							var97--;
 							if (var97 < 0) {
@@ -1609,7 +1609,7 @@ public class Pix3D extends Pix2D {
 									if (var96 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var98, var91 >> 16, var89 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var98, var91 >> 16, var89 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
 									var91 += var29;
 									var89 += var28;
 									var75 += var32;
@@ -1619,7 +1619,7 @@ public class Pix3D extends Pix2D {
 									var95 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var98, var90 >> 16, var89 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var98, var90 >> 16, var89 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
 							var90 += var27;
 							var89 += var28;
 							var75 += var32;
@@ -1629,9 +1629,9 @@ public class Pix3D extends Pix2D {
 							var95 += var47;
 						}
 					} else {
-						int var99 = arg2 - arg0;
-						int var100 = arg0 - arg1;
-						int var101 = field2527[arg1];
+						int var99 = screen_x2 - screen_x0;
+						int var100 = screen_x0 - screen_x1;
+						int var101 = field2527[screen_x1];
 						while (true) {
 							var100--;
 							if (var100 < 0) {
@@ -1640,7 +1640,7 @@ public class Pix3D extends Pix2D {
 									if (var99 < 0) {
 										return;
 									}
-									method2755(Pix2D.data, var19, 0, 0, var101, var89 >> 16, var91 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
+									rasterTexture(Pix2D.data, var19, 0, 0, var101, var89 >> 16, var91 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
 									var91 += var29;
 									var89 += var28;
 									var75 += var32;
@@ -1650,7 +1650,7 @@ public class Pix3D extends Pix2D {
 									var95 += var47;
 								}
 							}
-							method2755(Pix2D.data, var19, 0, 0, var101, var89 >> 16, var90 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
+							rasterTexture(Pix2D.data, var19, 0, 0, var101, var89 >> 16, var90 >> 16, var75, var31, var93, var94, var95, var40, var43, var46);
 							var90 += var27;
 							var89 += var28;
 							var75 += var32;
@@ -1662,36 +1662,36 @@ public class Pix3D extends Pix2D {
 					}
 				}
 			}
-		} else if (arg2 < field2532) {
-			if (arg0 > field2532) {
-				arg0 = field2532;
+		} else if (screen_x2 < field2532) {
+			if (screen_x0 > field2532) {
+				screen_x0 = field2532;
 			}
-			if (arg1 > field2532) {
-				arg1 = field2532;
+			if (screen_x1 > field2532) {
+				screen_x1 = field2532;
 			}
-			int var102 = (arg8 << 9) - arg5 * var31 + var31;
-			if (arg0 < arg1) {
+			int var102 = (color_c << 9) - screen_y2 * var31 + var31;
+			if (screen_x0 < screen_x1) {
 				int var103;
-				int var104 = var103 = arg5 << 16;
-				if (arg2 < 0) {
-					var104 -= arg2 * var28;
-					var103 -= arg2 * var29;
-					var102 -= arg2 * var32;
-					arg2 = 0;
+				int var104 = var103 = screen_y2 << 16;
+				if (screen_x2 < 0) {
+					var104 -= screen_x2 * var28;
+					var103 -= screen_x2 * var29;
+					var102 -= screen_x2 * var32;
+					screen_x2 = 0;
 				}
-				int var105 = arg3 << 16;
-				if (arg0 < 0) {
-					var105 -= arg0 * var27;
-					arg0 = 0;
+				int var105 = screen_y0 << 16;
+				if (screen_x0 < 0) {
+					var105 -= screen_x0 * var27;
+					screen_x0 = 0;
 				}
-				int var106 = arg2 - centerY;
+				int var106 = screen_x2 - centerY;
 				int var107 = var41 * var106 + var39;
 				int var108 = var44 * var106 + var42;
 				int var109 = var47 * var106 + var45;
 				if (var28 < var29) {
-					int var110 = arg1 - arg0;
-					int var111 = arg0 - arg2;
-					int var112 = field2527[arg2];
+					int var110 = screen_x1 - screen_x0;
+					int var111 = screen_x0 - screen_x2;
+					int var112 = field2527[screen_x2];
 					while (true) {
 						var111--;
 						if (var111 < 0) {
@@ -1700,7 +1700,7 @@ public class Pix3D extends Pix2D {
 								if (var110 < 0) {
 									return;
 								}
-								method2755(Pix2D.data, var19, 0, 0, var112, var104 >> 16, var105 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
+								rasterTexture(Pix2D.data, var19, 0, 0, var112, var104 >> 16, var105 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
 								var104 += var28;
 								var105 += var27;
 								var102 += var32;
@@ -1710,7 +1710,7 @@ public class Pix3D extends Pix2D {
 								var109 += var47;
 							}
 						}
-						method2755(Pix2D.data, var19, 0, 0, var112, var104 >> 16, var103 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
+						rasterTexture(Pix2D.data, var19, 0, 0, var112, var104 >> 16, var103 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
 						var104 += var28;
 						var103 += var29;
 						var102 += var32;
@@ -1720,9 +1720,9 @@ public class Pix3D extends Pix2D {
 						var109 += var47;
 					}
 				} else {
-					int var113 = arg1 - arg0;
-					int var114 = arg0 - arg2;
-					int var115 = field2527[arg2];
+					int var113 = screen_x1 - screen_x0;
+					int var114 = screen_x0 - screen_x2;
+					int var115 = field2527[screen_x2];
 					while (true) {
 						var114--;
 						if (var114 < 0) {
@@ -1731,7 +1731,7 @@ public class Pix3D extends Pix2D {
 								if (var113 < 0) {
 									return;
 								}
-								method2755(Pix2D.data, var19, 0, 0, var115, var105 >> 16, var104 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
+								rasterTexture(Pix2D.data, var19, 0, 0, var115, var105 >> 16, var104 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
 								var104 += var28;
 								var105 += var27;
 								var102 += var32;
@@ -1741,7 +1741,7 @@ public class Pix3D extends Pix2D {
 								var109 += var47;
 							}
 						}
-						method2755(Pix2D.data, var19, 0, 0, var115, var103 >> 16, var104 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
+						rasterTexture(Pix2D.data, var19, 0, 0, var115, var103 >> 16, var104 >> 16, var102, var31, var107, var108, var109, var40, var43, var46);
 						var104 += var28;
 						var103 += var29;
 						var102 += var32;
@@ -1753,26 +1753,26 @@ public class Pix3D extends Pix2D {
 				}
 			} else {
 				int var116;
-				int var117 = var116 = arg5 << 16;
-				if (arg2 < 0) {
-					var117 -= arg2 * var28;
-					var116 -= arg2 * var29;
-					var102 -= arg2 * var32;
-					arg2 = 0;
+				int var117 = var116 = screen_y2 << 16;
+				if (screen_x2 < 0) {
+					var117 -= screen_x2 * var28;
+					var116 -= screen_x2 * var29;
+					var102 -= screen_x2 * var32;
+					screen_x2 = 0;
 				}
-				int var118 = arg4 << 16;
-				if (arg1 < 0) {
-					var118 -= arg1 * var27;
-					arg1 = 0;
+				int var118 = screen_y1 << 16;
+				if (screen_x1 < 0) {
+					var118 -= screen_x1 * var27;
+					screen_x1 = 0;
 				}
-				int var119 = arg2 - centerY;
+				int var119 = screen_x2 - centerY;
 				int var120 = var41 * var119 + var39;
 				int var121 = var44 * var119 + var42;
 				int var122 = var47 * var119 + var45;
 				if (var28 < var29) {
-					int var123 = arg0 - arg1;
-					int var124 = arg1 - arg2;
-					int var125 = field2527[arg2];
+					int var123 = screen_x0 - screen_x1;
+					int var124 = screen_x1 - screen_x2;
+					int var125 = field2527[screen_x2];
 					while (true) {
 						var124--;
 						if (var124 < 0) {
@@ -1781,7 +1781,7 @@ public class Pix3D extends Pix2D {
 								if (var123 < 0) {
 									return;
 								}
-								method2755(Pix2D.data, var19, 0, 0, var125, var118 >> 16, var116 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
+								rasterTexture(Pix2D.data, var19, 0, 0, var125, var118 >> 16, var116 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
 								var118 += var27;
 								var116 += var29;
 								var102 += var32;
@@ -1791,7 +1791,7 @@ public class Pix3D extends Pix2D {
 								var122 += var47;
 							}
 						}
-						method2755(Pix2D.data, var19, 0, 0, var125, var117 >> 16, var116 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
+						rasterTexture(Pix2D.data, var19, 0, 0, var125, var117 >> 16, var116 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
 						var117 += var28;
 						var116 += var29;
 						var102 += var32;
@@ -1801,9 +1801,9 @@ public class Pix3D extends Pix2D {
 						var122 += var47;
 					}
 				} else {
-					int var126 = arg0 - arg1;
-					int var127 = arg1 - arg2;
-					int var128 = field2527[arg2];
+					int var126 = screen_x0 - screen_x1;
+					int var127 = screen_x1 - screen_x2;
+					int var128 = field2527[screen_x2];
 					while (true) {
 						var127--;
 						if (var127 < 0) {
@@ -1812,7 +1812,7 @@ public class Pix3D extends Pix2D {
 								if (var126 < 0) {
 									return;
 								}
-								method2755(Pix2D.data, var19, 0, 0, var128, var116 >> 16, var118 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
+								rasterTexture(Pix2D.data, var19, 0, 0, var128, var116 >> 16, var118 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
 								var118 += var27;
 								var116 += var29;
 								var102 += var32;
@@ -1822,7 +1822,7 @@ public class Pix3D extends Pix2D {
 								var122 += var47;
 							}
 						}
-						method2755(Pix2D.data, var19, 0, 0, var128, var116 >> 16, var117 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
+						rasterTexture(Pix2D.data, var19, 0, 0, var128, var116 >> 16, var117 >> 16, var102, var31, var120, var121, var122, var40, var43, var46);
 						var117 += var28;
 						var116 += var29;
 						var102 += var32;
@@ -1837,7 +1837,7 @@ public class Pix3D extends Pix2D {
 	}
 
 	@ObfuscatedName("fx.ca([I[IIIIIIIIIIIIII)V")
-	public static final void method2755(int[] arg0, int[] arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14) {
+	public static final void rasterTexture(int[] arg0, int[] arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14) {
 		if (hclip) {
 			if (arg6 > boundX) {
 				arg6 = boundX;
