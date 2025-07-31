@@ -10457,7 +10457,7 @@ public class Client extends GameShell {
 		}
 
 		cameraPitch = 0;
-		// cameraYaw = 239;
+		cameraYaw = 0;
 		int sinEyePitch = Pix3D.sinTable[cameraPitch];
 		int cosEyePitch = Pix3D.cosTable[cameraPitch];
 		int sinEyeYaw = Pix3D.sinTable[cameraYaw];
