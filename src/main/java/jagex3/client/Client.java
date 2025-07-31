@@ -1072,6 +1072,8 @@ public class Client extends GameShell {
 	@ObfuscatedName("client.oj")
 	public static int[] cameraModifierJitter = new int[5];
 
+	public static ModelUnlit myModel;
+
 	@ObfuscatedName("br.om")
 	public static int cutsceneSrcLocalTileZ; // todo
 
@@ -1159,6 +1161,7 @@ public class Client extends GameShell {
 
 	public static void main(String[] args) {
 		Client app = new Client();
+
 		app.initApplication(765, 503, 1);
 	}
 
@@ -3973,7 +3976,7 @@ public class Client extends GameShell {
 							var55.model = new LocEntity(var56, 4, (var51 + 2 & 0x3) + 4, currentLevel, var47, var48, var45, false, var55.model);
 						} else if (var50 == 8) {
 							var55.model = new LocEntity(var56, 4, var51 + 4, currentLevel, var47, var48, var45, false, var55.model);
-							var55.modelb = new LocEntity(var56, 4, (var51 + 2 & 0x3) + 4, currentLevel, var47, var48, var45, false, var55.modelb);
+							var55.field713 = new LocEntity(var56, 4, (var51 + 2 & 0x3) + 4, currentLevel, var47, var48, var45, false, var55.field713);
 						}
 					}
 				}
@@ -10445,8 +10448,35 @@ public class Client extends GameShell {
 		method1351();
 		Pix2D.method2637(var12, var13, var31, var32, 0);
 		method1351();
-		scene.draw(cameraX, cameraY, cameraZ, cameraPitch, cameraYaw, var62);
+
+		// scene.draw(cameraX, cameraY, cameraZ, cameraPitch, cameraYaw, var62);
+		if (myModel == null) {
+			ModelLit modelLit = ModelLit.tryGet(LocType.modelJs5, 1571, 0);
+			ModelUnlit model = modelLit.calculateNormals(0 + 64, 0 + 768, -50, -10, -50);
+			myModel = model;
+		}
+
+		cameraPitch = 0;
+		// cameraYaw = 239;
+		int sinEyePitch = Pix3D.sinTable[cameraPitch];
+		int cosEyePitch = Pix3D.cosTable[cameraPitch];
+		int sinEyeYaw = Pix3D.sinTable[cameraYaw];
+		int cosEyeYaw = Pix3D.cosTable[cameraYaw];
+
+		int eyeX = cameraX;
+		int eyeY = cameraY;
+		int eyeZ = cameraZ;
+
+		int x = 5312;
+		int y = -240;
+		int z = 8768;
+
+		
+		// x, y, z
+		myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,0,200,768, 0);
+		
 		method1351();
+
 		scene.clearTemporaryLocs();
 		imethod37(var12, var13, var31, var32);
 		drawTileHint(var12, var13);

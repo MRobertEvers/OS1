@@ -391,7 +391,7 @@ public class World3D {
 		var13.field707 = arg2 * 128 + 64;
 		var13.field709 = arg3;
 		var13.model = arg4;
-		var13.modelb = arg5;
+		var13.field713 = arg5;
 		var13.type = arg6;
 		var13.field705 = arg7;
 		var13.x = arg8;
@@ -1297,8 +1297,8 @@ public class World3D {
 													}
 													if (var28 < var27) {
 														var22.model.draw(0, sinEyePitch, cosEyePitch, sinEyeYaw, cosEyeYaw, var22.x + var23, var24, var22.z + var25, var22.bitset);
-													} else if (var22.modelb != null) {
-														var22.modelb.draw(0, sinEyePitch, cosEyePitch, sinEyeYaw, cosEyeYaw, var23, var24, var25, var22.bitset);
+													} else if (var22.field713 != null) {
+														var22.field713.draw(0, sinEyePitch, cosEyePitch, sinEyeYaw, cosEyeYaw, var23, var24, var25, var22.bitset);
 													}
 												}
 											}
@@ -1526,8 +1526,8 @@ public class World3D {
 						}
 						if (var75 >= var74) {
 							var69.model.draw(0, sinEyePitch, cosEyePitch, sinEyeYaw, cosEyeYaw, var69.x + var70, var71, var69.z + var72, var69.bitset);
-						} else if (var69.modelb != null) {
-							var69.modelb.draw(0, sinEyePitch, cosEyePitch, sinEyeYaw, cosEyeYaw, var70, var71, var72, var69.bitset);
+						} else if (var69.field713 != null) {
+							var69.field713.draw(0, sinEyePitch, cosEyePitch, sinEyeYaw, cosEyeYaw, var70, var71, var72, var69.bitset);
 						}
 					}
 				}

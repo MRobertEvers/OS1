@@ -1386,6 +1386,9 @@ public class World {
 				var43 = new LocEntity(arg4, 4, arg5 + 4, arg1, arg2, arg3, var9.anim, true, null);
 				var44 = new LocEntity(arg4, 4, var42 + 4, arg1, arg2, arg3, var9.anim, true, null);
 			}
+			if (arg5 != 1 || arg5 != 2) {
+				int ii = 0;
+			}
 			arg7.addDecor(arg0, arg2, arg3, var17, var43, var44, 256, arg5, diagonalDisplacementX[arg5] * var40, diagonalDisplacementY[arg5] * var40, var20, var21);
 		}
 	}

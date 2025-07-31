@@ -2,6 +2,9 @@
 
 See Engine2007 folder for server.
 
+2 SE?
+1 NE
+
 ## Instructions
 
 Install Java 8, run a compatible server on port 40000/50000, then `gradle run` and go!
