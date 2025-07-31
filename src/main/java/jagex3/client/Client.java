@@ -37,6 +37,8 @@ import java.net.URL;
 @ObfuscatedName("client")
 public class Client extends GameShell {
 
+	public static boolean isModelViewer = false;
+
 	@ObfuscatedName("cd.ad")
 	public static Image progressBar;
 
@@ -1415,7 +1417,7 @@ public class Client extends GameShell {
 	}
 
 	@ObfuscatedName("aj.ce(II)V")
-	public static void method729(int state) {
+	public static void setGameState(int state) {
 		if (gameState == state) {
 			return;
 		}
@@ -1680,7 +1682,7 @@ public class Client extends GameShell {
 			} else {
 				LoginScreen.message = Locale.field885;
 				LoginScreen.progress = 50;
-				method729(5);
+				setGameState(5);
 				field1940 = 70;
 			}
 		} else if (field1940 == 70) {
@@ -1866,7 +1868,7 @@ public class Client extends GameShell {
 				LoginScreen.progress = 100;
 			}
 		} else if (field1940 == 140) {
-			method729(10);
+			setGameState(10);
 		}
 	}
 
@@ -2262,7 +2264,7 @@ public class Client extends GameShell {
 		} else {
 			LoginScreen.showMessage(Locale.LOGIN_RESPONSE_LINE1, Locale.LOGIN_RESPONSE_LINE2, Locale.LOGIN_RESPONSE_LINE3);
 		}
-		method729(10);
+		setGameState(10);
 	}
 
 	@ObfuscatedName("dq.dz(B)V")
@@ -2281,7 +2283,7 @@ public class Client extends GameShell {
 		field2170 = -1;
 		field2189 = false;
 		imethod6();
-		method729(10);
+		setGameState(10);
 	}
 
 	@ObfuscatedName("bh.da(B)V")
@@ -3353,7 +3355,7 @@ public class Client extends GameShell {
 		if (!lowMemory) {
 			field2128 = 0;
 		}
-		method729(25);
+		setGameState(25);
 		method1789(Locale.field873, true);
 		int var5 = sceneBaseTileX;
 		int var6 = sceneBaseTileZ;
@@ -5604,7 +5606,7 @@ public class Client extends GameShell {
 				if (var10.clientCode == 1337) {
 					field1971 = var12;
 					field1976 = var13;
-					imethod34(var12, var13, var10.width, var10.height);
+					drawScene2(var12, var13, var10.width, var10.height);
 					Pix2D.setBounds(arg2, arg3, arg4, arg5);
 					continue;
 				}
@@ -7650,7 +7652,7 @@ public class Client extends GameShell {
 				}
 			}
 		}
-		method729(30);
+		setGameState(30);
 		method1351();
 		World.method771();
 		out.pisaac1(197);
@@ -7732,7 +7734,7 @@ public class Client extends GameShell {
 			}
 		}
 		imethod11();
-		method729(30);
+		setGameState(30);
 		for (int var8 = 0; var8 < 100; var8++) {
 			topLevelComponentRedrawRequestedTemp[var8] = true;
 		}
@@ -8162,7 +8164,7 @@ public class Client extends GameShell {
 		if (idleTimeout > 0) {
 			logout();
 		} else {
-			method729(40);
+			setGameState(40);
 			field53 = stream;
 			stream = null;
 		}
@@ -10377,7 +10379,7 @@ public class Client extends GameShell {
 		}
 	}
 
-	public static void imethod34(int var12, int var13, int var31, int var32) {
+	public static void drawScene2(int var12, int var13, int var31, int var32) {
 		Pix2D.setBounds(var12, var13, var12 + var31, var13 + var32);
 		Pix3D.method2808();
 		sceneCycle++;
@@ -10449,32 +10451,36 @@ public class Client extends GameShell {
 		Pix2D.method2637(var12, var13, var31, var32, 0);
 		method1351();
 
-		// scene.draw(cameraX, cameraY, cameraZ, cameraPitch, cameraYaw, var62);
-		if (myModel == null) {
-			ModelLit modelLit = ModelLit.tryGet(LocType.modelJs5, 1571, 0);
-			ModelUnlit model = modelLit.calculateNormals(0 + 64, 0 + 768, -50, -10, -50);
-			myModel = model;
+		if (!Client.isModelViewer) {
+			scene.draw(cameraX, cameraY, cameraZ, cameraPitch, cameraYaw, var62);
 		}
-
-		cameraPitch = 0;
-		cameraYaw = 0;
-		int sinEyePitch = Pix3D.sinTable[cameraPitch];
-		int cosEyePitch = Pix3D.cosTable[cameraPitch];
-		int sinEyeYaw = Pix3D.sinTable[cameraYaw];
-		int cosEyeYaw = Pix3D.cosTable[cameraYaw];
-
-		int eyeX = cameraX;
-		int eyeY = cameraY;
-		int eyeZ = cameraZ;
-
-		int x = 5312;
-		int y = -240;
-		int z = 8768;
-
-		
-		// x, y, z
-		myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,0,200,768, 0);
-		
+		else 
+		{
+			if (myModel == null) {
+				ModelLit modelLit = ModelLit.tryGet(LocType.modelJs5, 1571, 0);
+				ModelUnlit model = modelLit.calculateNormals(0 + 64, 0 + 768, -50, -10, -50);
+				myModel = model;
+			}
+	
+			cameraPitch = 0;
+			cameraYaw = 0;
+			int sinEyePitch = Pix3D.sinTable[cameraPitch];
+			int cosEyePitch = Pix3D.cosTable[cameraPitch];
+			int sinEyeYaw = Pix3D.sinTable[cameraYaw];
+			int cosEyeYaw = Pix3D.cosTable[cameraYaw];
+	
+			int eyeX = cameraX;
+			int eyeY = cameraY;
+			int eyeZ = cameraZ;
+	
+			int x = 5312;
+			int y = -240;
+			int z = 8768;
+	
+			
+			// x, y, z
+			myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,0,200,768, 0);
+		}
 		method1351();
 
 		scene.clearTemporaryLocs();

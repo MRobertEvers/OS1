@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ClientModelViewer",
+            "request": "launch",
+            "mainClass": "jagex3.client.ClientModelViewer",
+            "projectName": "OS1"
+        },
+        {
+            "type": "java",
             "name": "Client",
             "request": "launch",
             "mainClass": "jagex3.client.Client",

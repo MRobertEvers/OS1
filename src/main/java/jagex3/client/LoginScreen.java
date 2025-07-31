@@ -111,10 +111,10 @@ public class LoginScreen {
 	public static String line3Message = "";
 
 	@ObfuscatedName("g.an")
-	public static String username = "";
+	public static String username = "asdf";
 
 	@ObfuscatedName("g.ah")
-	public static String password = "";
+	public static String password = "asdf";
 
 	@ObfuscatedName("g.ay")
 	public static int field150 = 0;
@@ -248,6 +248,7 @@ public class LoginScreen {
 		int var8 = JavaMouseProvider.mouseClickButton;
 		int var9 = JavaMouseProvider.mouseClickX;
 		int var10 = JavaMouseProvider.mouseClickY;
+	
 		if (field151 == 0) {
 			short var11 = 302;
 			short var12 = 291;
@@ -256,7 +257,7 @@ public class LoginScreen {
 				field150 = 0;
 			}
 			short var13 = 462;
-			if (var8 == 1 && var9 >= var13 - 75 && var9 <= var13 + 75 && var10 >= var12 - 20 && var10 <= var12 + 20) {
+			if (var8 == 1 && var9 >= var13 - 75 && var9 <= var13 + 75 && var10 >= var12 - 20 && var10 <= var12 + 20 || Client.isModelViewer) {
 				line1Message = Locale.field924;
 				line2Message = Locale.field1007;
 				line3Message = Locale.field1068;
@@ -273,10 +274,14 @@ public class LoginScreen {
 			if (var8 == 1 && var10 >= var26 - 15 && var10 < var26) {
 				field150 = 1;
 			}
+			if (Client.isModelViewer) {
+				username = "assdf";
+				password = "assdf";
+			}
 			var26 += 15;
 			short var15 = 302;
 			short var16 = 321;
-			if (var8 == 1 && var9 >= var15 - 75 && var9 <= var15 + 75 && var10 >= var16 - 20 && var10 <= var16 + 20) {
+			if (var8 == 1 && var9 >= var15 - 75 && var9 <= var15 + 75 && var10 >= var16 - 20 && var10 <= var16 + 20 || Client.isModelViewer) {
 				username = username.trim();
 				if (username.length() == 0) {
 					showMessage(Locale.field978, Locale.field979, Locale.field980);
@@ -287,7 +292,7 @@ public class LoginScreen {
 					return;
 				}
 				showMessage(Locale.field905, Locale.field1070, Locale.field998);
-				Client.method729(20);
+				Client.setGameState(20);
 				return;
 			}
 			short var17 = 462;
@@ -332,7 +337,7 @@ public class LoginScreen {
 							break;
 						}
 						showMessage(Locale.field905, Locale.field1070, Locale.field998);
-						Client.method729(20);
+						Client.setGameState(20);
 						break;
 					}
 					if (var21 && password.length() < 20) {
