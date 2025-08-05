@@ -1257,7 +1257,7 @@ public class ModelUnlit extends Entity {
 				Pix3D.textureTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], this.faceColorA[face], this.faceColorB[face], this.faceColorC[face], vertexViewSpaceX[var6], vertexViewSpaceX[var7], vertexViewSpaceX[var8], vertexViewSpaceY[var6], vertexViewSpaceY[var7], vertexViewSpaceY[var8], vertexViewSpaceZ[var6], vertexViewSpaceZ[var7], vertexViewSpaceZ[var8], this.faceTextures[face]);
 
 				// This will draw the white triangle to represent the texture pnm.
-				Pix3D.flatTriangle(vertexScreenY[var6], vertexScreenY[var7], vertexScreenY[var8], vertexScreenX[var6], vertexScreenX[var7], vertexScreenX[var8], palette[this.faceColorA[face]]);
+				// Pix3D.flatTriangle(vertexScreenY[var6], vertexScreenY[var7], vertexScreenY[var8], vertexScreenX[var6], vertexScreenX[var7], vertexScreenX[var8], palette[this.faceColorA[face]]);
 			}
 		} else if (this.faceColorC[face] == -1) {
 			Pix3D.flatTriangle(vertexScreenY[a], vertexScreenY[b], vertexScreenY[c], vertexScreenX[a], vertexScreenX[b], vertexScreenX[c], palette[this.faceColorA[face]]);
