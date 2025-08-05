@@ -1340,39 +1340,39 @@ public class Pix3D extends Pix2D {
 						screen_x1 = 0;
 					}
 					int shift_center_dy = screen_x0 - centerY;
-					int var53 = pxn_yhat * shift_center_dy + pxn_zhat;
-					int var54 = pxm_yhat * shift_center_dy + pxm_zhat;
-					int var55 = mxn_yhat * shift_center_dy + mxn_zhat;
+					int v_walk = pxn_yhat * shift_center_dy + pxn_zhat;
+					int u_walk = pxm_yhat * shift_center_dy + pxm_zhat;
+					int w_walk = mxn_yhat * shift_center_dy + mxn_zhat;
 					if (screen_x0 != screen_x1 && step_dydx_ca < step_dydx_ab || screen_x0 == screen_x1 && step_dydx_ca > step_dydx_bc) {
-						int var56 = screen_x2 - screen_x1;
-						int var57 = screen_x1 - screen_x0;
+						int dscreenx_bc = screen_x2 - screen_x1;
+						int dscreenx_ab = screen_x1 - screen_x0;
 						int yoffset = field2527[screen_x0];
 						while (true) {
-							var57--;
-							if (var57 < 0) {
+							dscreenx_ab--;
+							if (dscreenx_ab < 0) {
 								while (true) {
-									var56--;
-									if (var56 < 0) {
+									dscreenx_bc--;
+									if (dscreenx_bc < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, yoffset, cur_v >> 16, cur_w >> 16, var48, var31, var53, var54, var55, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, yoffset, cur_v >> 16, cur_w >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
 									cur_v += step_dydx_ca;
 									cur_w += step_dydx_bc;
 									var48 += var32;
 									yoffset += Pix2D.width2d;
-									var53 += pxn_yhat;
-									var54 += pxm_yhat;
-									var55 += mxn_yhat;
+									v_walk += pxn_yhat;
+									u_walk += pxm_yhat;
+									w_walk += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, yoffset, cur_v >> 16, var49 >> 16, var48, var31, var53, var54, var55, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, yoffset, cur_v >> 16, var49 >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
 							cur_v += step_dydx_ca;
 							var49 += step_dydx_ab;
 							var48 += var32;
 							yoffset += Pix2D.width2d;
-							var53 += pxn_yhat;
-							var54 += pxm_yhat;
-							var55 += mxn_yhat;
+							v_walk += pxn_yhat;
+							u_walk += pxm_yhat;
+							w_walk += mxn_yhat;
 						}
 					} else {
 						int var59 = screen_x2 - screen_x1;
@@ -1386,24 +1386,24 @@ public class Pix3D extends Pix2D {
 									if (var59 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var61, cur_w >> 16, cur_v >> 16, var48, var31, var53, var54, var55, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, var61, cur_w >> 16, cur_v >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
 									cur_v += step_dydx_ca;
 									cur_w += step_dydx_bc;
 									var48 += var32;
 									var61 += Pix2D.width2d;
-									var53 += pxn_yhat;
-									var54 += pxm_yhat;
-									var55 += mxn_yhat;
+									v_walk += pxn_yhat;
+									u_walk += pxm_yhat;
+									w_walk += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var61, var49 >> 16, cur_v >> 16, var48, var31, var53, var54, var55, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, var61, var49 >> 16, cur_v >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
 							cur_v += step_dydx_ca;
 							var49 += step_dydx_ab;
 							var48 += var32;
 							var61 += Pix2D.width2d;
-							var53 += pxn_yhat;
-							var54 += pxm_yhat;
-							var55 += mxn_yhat;
+							v_walk += pxn_yhat;
+							u_walk += pxm_yhat;
+							w_walk += mxn_yhat;
 						}
 					}
 				} else {
@@ -1837,221 +1837,223 @@ public class Pix3D extends Pix2D {
 	}
 
 	@ObfuscatedName("fx.ca([I[IIIIIIIIIIIIII)V")
-	public static final void rasterTexture(int[] arg0, int[] arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14) {
+	public static final void rasterTexture(int[] pixel_buffer, int[] texels, int arg2, int arg3, int cur_y, int x_start, int x_end, int color_line_start_ish8, int color_step_ish8, int u_start, int v_start, int w_start, int step_u, int step_v, int step_w) {
 		if (hclip) {
-			if (arg6 > boundX) {
-				arg6 = boundX;
+			if (x_end > boundX) {
+				x_end = boundX;
 			}
-			if (arg5 < 0) {
-				arg5 = 0;
+			if (x_start < 0) {
+				x_start = 0;
 			}
 		}
-		if (arg5 >= arg6) {
+		if (x_start >= x_end) {
 			return;
 		}
-		int var15 = arg4 + arg5;
-		int var16 = arg5 * arg8 + arg7;
-		int var17 = arg6 - arg5;
+		int offset_px = cur_y + x_start;
+		int curr_color_ish8 = x_start * color_step_ish8 + color_line_start_ish8;
+		int dx_steps = x_end - x_start;
 		int var10000;
 		if (!lowDetail) {
-			int var78 = arg5 - centerX;
-			int var79 = (arg12 >> 3) * var78 + arg9;
-			int var80 = (arg13 >> 3) * var78 + arg10;
-			int var81 = (arg14 >> 3) * var78 + arg11;
-			int var82 = var81 >> 14;
-			int var83;
-			int var84;
-			if (var82 == 0) {
-				var83 = 0;
-				var84 = 0;
+			int dx_shift = x_start - centerX;
+			int cur_u = (step_u >> 3) * dx_shift + u_start;
+			int cur_v = (step_v >> 3) * dx_shift + v_start;
+			int cur_w = (step_w >> 3) * dx_shift + w_start;
+			int cur_w_downshift7and7 = cur_w >> 14;
+			int cur_u_ish14;
+			int cur_v_ish14;
+			if (cur_w_downshift7and7 == 0) {
+				cur_u_ish14 = 0;
+				cur_v_ish14 = 0;
 			} else {
-				var83 = var79 / var82;
-				var84 = var80 / var82;
-				if (var83 < 0) {
-					var83 = 0;
-				} else if (var83 > 16256) {
-					var83 = 16256;
+				cur_u_ish14 = cur_u / cur_w_downshift7and7;
+				cur_v_ish14 = cur_v / cur_w_downshift7and7;
+				if (cur_u_ish14 < 0) {
+					cur_u_ish14 = 0;
+				} else if (cur_u_ish14 > 16256) {
+					cur_u_ish14 = 16256;
 				}
 			}
-			int var85 = arg12 + var79;
-			int var86 = arg13 + var80;
-			int var87 = arg14 + var81;
-			int var88 = var87 >> 14;
-			int next_u;
-			int next_v;
-			if (var88 == 0) {
-				next_u = 0;
-				next_v = 0;
+			int next_u = step_u + cur_u;
+			int next_v = step_v + cur_v;
+			int next_w = step_w + cur_w;
+			int next_w_downshift14 = next_w >> 14;
+			int next_u_ish14;
+			int next_v_ish14;
+			if (next_w_downshift14 == 0) {
+				next_u_ish14 = 0;
+				next_v_ish14 = 0;
 			} else {
-				next_u = var85 / var88;
-				next_v = var86 / var88;
-				if (next_u < 0) {
-					next_u = 0;
-				} else if (next_u > 16256) {
-					next_u = 16256;
+				next_u_ish14 = next_u / next_w_downshift14;
+				next_v_ish14 = next_v / next_w_downshift14;
+				if (next_u_ish14 < 0) {
+					next_u_ish14 = 0;
+				} else if (next_u_ish14 > 16256) {
+					next_u_ish14 = 16256;
 				}
 			}
-			int var91 = (var83 << 18) + var84;
-			int var92 = (next_u - var83 >> 3 << 18) + (next_v - var84 >> 3);
-			int var93 = var17 >> 3;
-			int var94 = arg8 << 3;
-			int var95 = var16 >> 8;
+			int coord_walk = (cur_u_ish14 << 18) + cur_v_ish14;
+			int uv_walk_highlow = (next_u_ish14 - cur_u_ish14 >> 3 << 18) + (next_v_ish14 - cur_v_ish14 >> 3);
+			int lerp8_steps = dx_steps >> 3;
+			// This is interpolated once per 8 pixels
+			int color_step_lerp8 = color_step_ish8 << 3;
+			int maybe_blend_color = curr_color_ish8 >> 8;
 			if (opaque) {
-				if (var93 > 0) {
+				if (lerp8_steps > 0) {
 					do {
-						int var96 = arg1[(var91 >>> 25) + (var91 & 0x3F80)];
-						arg0[var15++] = ((var96 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var96 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						int var97 = var91 + var92;
-						int var98 = arg1[(var97 >>> 25) + (var97 & 0x3F80)];
-						arg0[var15++] = ((var98 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var98 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						int var99 = var92 + var97;
-						int var100 = arg1[(var99 >>> 25) + (var99 & 0x3F80)];
-						arg0[var15++] = ((var100 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var100 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						int var101 = var92 + var99;
-						int var102 = arg1[(var101 >>> 25) + (var101 & 0x3F80)];
-						arg0[var15++] = ((var102 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var102 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						int var103 = var92 + var101;
-						int var104 = arg1[(var103 >>> 25) + (var103 & 0x3F80)];
-						arg0[var15++] = ((var104 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var104 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						int var105 = var92 + var103;
-						int var106 = arg1[(var105 >>> 25) + (var105 & 0x3F80)];
-						arg0[var15++] = ((var106 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var106 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						int var107 = var92 + var105;
-						int var108 = arg1[(var107 >>> 25) + (var107 & 0x3F80)];
-						arg0[var15++] = ((var108 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var108 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						int var109 = var92 + var107;
-						int var110 = arg1[(var109 >>> 25) + (var109 & 0x3F80)];
-						arg0[var15++] = ((var110 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var110 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						var10000 = var92 + var109;
-						int var112 = next_u;
-						int var113 = next_v;
-						var85 += arg12;
-						var86 += arg13;
-						var87 += arg14;
-						int var114 = var87 >> 14;
+						int texel = texels[(coord_walk >>> 25) + (coord_walk & 0x3F80)];
+						pixel_buffer[offset_px++] = ((texel & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((texel & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						int var97 = coord_walk + uv_walk_highlow;
+						int var98 = texels[(var97 >>> 25) + (var97 & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var98 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var98 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						int var99 = uv_walk_highlow + var97;
+						int var100 = texels[(var99 >>> 25) + (var99 & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var100 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var100 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						int var101 = uv_walk_highlow + var99;
+						int var102 = texels[(var101 >>> 25) + (var101 & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var102 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var102 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						int var103 = uv_walk_highlow + var101;
+						int var104 = texels[(var103 >>> 25) + (var103 & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var104 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var104 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						int var105 = uv_walk_highlow + var103;
+						int var106 = texels[(var105 >>> 25) + (var105 & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var106 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var106 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						int var107 = uv_walk_highlow + var105;
+						int var108 = texels[(var107 >>> 25) + (var107 & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var108 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var108 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						int var109 = uv_walk_highlow + var107;
+						int var110 = texels[(var109 >>> 25) + (var109 & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var110 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var110 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						var10000 = uv_walk_highlow + var109;
+						int var112 = next_u_ish14;
+						int var113 = next_v_ish14;
+						next_u += step_u;
+						next_v += step_v;
+						next_w += step_w;
+						int var114 = next_w >> 14;
 						if (var114 == 0) {
-							next_u = 0;
-							next_v = 0;
+							next_u_ish14 = 0;
+							next_v_ish14 = 0;
 						} else {
-							next_u = var85 / var114;
-							next_v = var86 / var114;
-							if (next_u < 0) {
-								next_u = 0;
-							} else if (next_u > 16256) {
-								next_u = 16256;
+							next_u_ish14 = next_u / var114;
+							next_v_ish14 = next_v / var114;
+							if (next_u_ish14 < 0) {
+								next_u_ish14 = 0;
+							} else if (next_u_ish14 > 16256) {
+								next_u_ish14 = 16256;
 							}
 						}
-						var91 = (var112 << 18) + var113;
-						var92 = (next_u - var112 >> 3 << 18) + (next_v - var113 >> 3);
-						var16 += var94;
-						var95 = var16 >> 8;
-						var93--;
-					} while (var93 > 0);
+						coord_walk = (var112 << 18) + var113;
+						uv_walk_highlow = (next_u_ish14 - var112 >> 3 << 18) + (next_v_ish14 - var113 >> 3);
+						curr_color_ish8 += color_step_lerp8;
+						maybe_blend_color = curr_color_ish8 >> 8;
+						lerp8_steps--;
+					} while (lerp8_steps > 0);
 				}
-				int var115 = arg6 - arg5 & 0x7;
-				if (var115 > 0) {
+				int single_steps = x_end - x_start & 0x7;
+				if (single_steps > 0) {
 					do {
-						int var116 = arg1[(var91 >>> 25) + (var91 & 0x3F80)];
-						arg0[var15++] = ((var116 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var116 & 0xFF00) * var95 & 0xFF0000) >> 8;
-						var91 += var92;
-						var115--;
-					} while (var115 > 0);
+						int var116 = texels[(coord_walk >>> 25) + (coord_walk & 0x3F80)];
+						pixel_buffer[offset_px++] = ((var116 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var116 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
+						coord_walk += uv_walk_highlow;
+						single_steps--;
+					} while (single_steps > 0);
 				}
 			} else {
-				if (var93 > 0) {
+				// Texture contains transparent cells (var93 == 0)
+				if (lerp8_steps > 0) {
 					do {
 						int var117;
-						if ((var117 = arg1[(var91 >>> 25) + (var91 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var117 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var117 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var117 = texels[(coord_walk >>> 25) + (coord_walk & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var117 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var117 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						int var118 = var91 + var92;
+						offset_px++;
+						int var118 = coord_walk + uv_walk_highlow;
 						int var119;
-						if ((var119 = arg1[(var118 >>> 25) + (var118 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var119 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var119 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var119 = texels[(var118 >>> 25) + (var118 & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var119 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var119 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						int var120 = var92 + var118;
+						offset_px++;
+						int var120 = uv_walk_highlow + var118;
 						int var121;
-						if ((var121 = arg1[(var120 >>> 25) + (var120 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var121 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var121 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var121 = texels[(var120 >>> 25) + (var120 & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var121 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var121 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						int var122 = var92 + var120;
+						offset_px++;
+						int var122 = uv_walk_highlow + var120;
 						int var123;
-						if ((var123 = arg1[(var122 >>> 25) + (var122 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var123 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var123 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var123 = texels[(var122 >>> 25) + (var122 & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var123 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var123 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						int var124 = var92 + var122;
+						offset_px++;
+						int var124 = uv_walk_highlow + var122;
 						int var125;
-						if ((var125 = arg1[(var124 >>> 25) + (var124 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var125 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var125 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var125 = texels[(var124 >>> 25) + (var124 & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var125 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var125 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						int var126 = var92 + var124;
+						offset_px++;
+						int var126 = uv_walk_highlow + var124;
 						int var127;
-						if ((var127 = arg1[(var126 >>> 25) + (var126 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var127 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var127 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var127 = texels[(var126 >>> 25) + (var126 & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var127 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var127 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						int var128 = var92 + var126;
+						offset_px++;
+						int var128 = uv_walk_highlow + var126;
 						int var129;
-						if ((var129 = arg1[(var128 >>> 25) + (var128 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var129 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var129 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var129 = texels[(var128 >>> 25) + (var128 & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var129 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var129 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						int var130 = var92 + var128;
+						offset_px++;
+						int var130 = uv_walk_highlow + var128;
 						int var131;
-						if ((var131 = arg1[(var130 >>> 25) + (var130 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var131 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var131 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var131 = texels[(var130 >>> 25) + (var130 & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var131 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var131 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						var10000 = var92 + var130;
-						int var133 = next_u;
-						int var134 = next_v;
-						var85 += arg12;
-						var86 += arg13;
-						var87 += arg14;
-						int var135 = var87 >> 14;
+						offset_px++;
+						var10000 = uv_walk_highlow + var130;
+						int var133 = next_u_ish14;
+						int var134 = next_v_ish14;
+						next_u += step_u;
+						next_v += step_v;
+						next_w += step_w;
+						int var135 = next_w >> 14;
 						if (var135 == 0) {
-							next_u = 0;
-							next_v = 0;
+							next_u_ish14 = 0;
+							next_v_ish14 = 0;
 						} else {
-							next_u = var85 / var135;
-							next_v = var86 / var135;
-							if (next_u < 0) {
-								next_u = 0;
-							} else if (next_u > 16256) {
-								next_u = 16256;
+							next_u_ish14 = next_u / var135;
+							next_v_ish14 = next_v / var135;
+							if (next_u_ish14 < 0) {
+								next_u_ish14 = 0;
+							} else if (next_u_ish14 > 16256) {
+								next_u_ish14 = 16256;
 							}
 						}
-						var91 = (var133 << 18) + var134;
-						var92 = (next_u - var133 >> 3 << 18) + (next_v - var134 >> 3);
-						var16 += var94;
-						var95 = var16 >> 8;
-						var93--;
-					} while (var93 > 0);
+						coord_walk = (var133 << 18) + var134;
+						uv_walk_highlow = (next_u_ish14 - var133 >> 3 << 18) + (next_v_ish14 - var134 >> 3);
+						curr_color_ish8 += color_step_lerp8;
+						maybe_blend_color = curr_color_ish8 >> 8;
+						lerp8_steps--;
+					} while (lerp8_steps > 0);
 				}
-				int var136 = arg6 - arg5 & 0x7;
-				if (var136 > 0) {
+				int single_steps = x_end - x_start & 0x7;
+				if (single_steps > 0) {
 					do {
 						int var137;
-						if ((var137 = arg1[(var91 >>> 25) + (var91 & 0x3F80)]) != 0) {
-							arg0[var15] = ((var137 & 0xFF00FF) * var95 & 0xFF00FF00) + ((var137 & 0xFF00) * var95 & 0xFF0000) >> 8;
+						if ((var137 = texels[(coord_walk >>> 25) + (coord_walk & 0x3F80)]) != 0) {
+							pixel_buffer[offset_px] = ((var137 & 0xFF00FF) * maybe_blend_color & 0xFF00FF00) + ((var137 & 0xFF00) * maybe_blend_color & 0xFF0000) >> 8;
 						}
-						var15++;
-						var91 += var92;
-						var136--;
-					} while (var136 > 0);
+						offset_px++;
+						coord_walk += uv_walk_highlow;
+						single_steps--;
+					} while (single_steps > 0);
 				}
 			}
 			return;
 		}
-		int var18 = arg5 - centerX;
-		int var19 = (arg12 >> 3) * var18 + arg9;
-		int var20 = (arg13 >> 3) * var18 + arg10;
-		int var21 = (arg14 >> 3) * var18 + arg11;
+		int var18 = x_start - centerX;
+		int var19 = (step_u >> 3) * var18 + u_start;
+		int var20 = (step_v >> 3) * var18 + v_start;
+		int var21 = (step_w >> 3) * var18 + w_start;
 		int var22 = var21 >> 12;
 		int var23;
 		int var24;
@@ -2067,9 +2069,9 @@ public class Pix3D extends Pix2D {
 				var23 = 4032;
 			}
 		}
-		int var25 = arg12 + var19;
-		int var26 = arg13 + var20;
-		int var27 = arg14 + var21;
+		int var25 = step_u + var19;
+		int var26 = step_v + var20;
+		int var27 = step_w + var21;
 		int var28 = var27 >> 12;
 		int var29;
 		int var30;
@@ -2087,41 +2089,41 @@ public class Pix3D extends Pix2D {
 		}
 		int var31 = (var23 << 20) + var24;
 		int var32 = (var29 - var23 >> 3 << 20) + (var30 - var24 >> 3);
-		int var33 = var17 >> 3;
-		int var34 = arg8 << 3;
-		int var35 = var16 >> 8;
+		int var33 = dx_steps >> 3;
+		int var34 = color_step_ish8 << 3;
+		int var35 = curr_color_ish8 >> 8;
 		if (opaque) {
 			if (var33 > 0) {
 				do {
-					int var36 = arg1[(var31 >>> 26) + (var31 & 0xFC0)];
-					arg0[var15++] = ((var36 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var36 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var36 = texels[(var31 >>> 26) + (var31 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var36 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var36 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					int var37 = var31 + var32;
-					int var38 = arg1[(var37 >>> 26) + (var37 & 0xFC0)];
-					arg0[var15++] = ((var38 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var38 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var38 = texels[(var37 >>> 26) + (var37 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var38 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var38 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					int var39 = var32 + var37;
-					int var40 = arg1[(var39 >>> 26) + (var39 & 0xFC0)];
-					arg0[var15++] = ((var40 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var40 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var40 = texels[(var39 >>> 26) + (var39 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var40 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var40 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					int var41 = var32 + var39;
-					int var42 = arg1[(var41 >>> 26) + (var41 & 0xFC0)];
-					arg0[var15++] = ((var42 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var42 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var42 = texels[(var41 >>> 26) + (var41 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var42 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var42 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					int var43 = var32 + var41;
-					int var44 = arg1[(var43 >>> 26) + (var43 & 0xFC0)];
-					arg0[var15++] = ((var44 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var44 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var44 = texels[(var43 >>> 26) + (var43 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var44 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var44 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					int var45 = var32 + var43;
-					int var46 = arg1[(var45 >>> 26) + (var45 & 0xFC0)];
-					arg0[var15++] = ((var46 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var46 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var46 = texels[(var45 >>> 26) + (var45 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var46 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var46 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					int var47 = var32 + var45;
-					int var48 = arg1[(var47 >>> 26) + (var47 & 0xFC0)];
-					arg0[var15++] = ((var48 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var48 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var48 = texels[(var47 >>> 26) + (var47 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var48 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var48 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					int var49 = var32 + var47;
-					int var50 = arg1[(var49 >>> 26) + (var49 & 0xFC0)];
-					arg0[var15++] = ((var50 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var50 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var50 = texels[(var49 >>> 26) + (var49 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var50 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var50 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					var10000 = var32 + var49;
 					int var52 = var29;
 					int var53 = var30;
-					var25 += arg12;
-					var26 += arg13;
-					var27 += arg14;
+					var25 += step_u;
+					var26 += step_v;
+					var27 += step_w;
 					int var54 = var27 >> 12;
 					if (var54 == 0) {
 						var29 = 0;
@@ -2137,16 +2139,16 @@ public class Pix3D extends Pix2D {
 					}
 					var31 = (var52 << 20) + var53;
 					var32 = (var29 - var52 >> 3 << 20) + (var30 - var53 >> 3);
-					var16 += var34;
-					var35 = var16 >> 8;
+					curr_color_ish8 += var34;
+					var35 = curr_color_ish8 >> 8;
 					var33--;
 				} while (var33 > 0);
 			}
-			int var55 = arg6 - arg5 & 0x7;
+			int var55 = x_end - x_start & 0x7;
 			if (var55 > 0) {
 				do {
-					int var56 = arg1[(var31 >>> 26) + (var31 & 0xFC0)];
-					arg0[var15++] = ((var56 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var56 & 0xFF00) * var35 & 0xFF0000) >> 8;
+					int var56 = texels[(var31 >>> 26) + (var31 & 0xFC0)];
+					pixel_buffer[offset_px++] = ((var56 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var56 & 0xFF00) * var35 & 0xFF0000) >> 8;
 					var31 += var32;
 					var55--;
 				} while (var55 > 0);
@@ -2156,58 +2158,58 @@ public class Pix3D extends Pix2D {
 		if (var33 > 0) {
 			do {
 				int var57;
-				if ((var57 = arg1[(var31 >>> 26) + (var31 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var57 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var57 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var57 = texels[(var31 >>> 26) + (var31 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var57 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var57 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				int var58 = var31 + var32;
 				int var59;
-				if ((var59 = arg1[(var58 >>> 26) + (var58 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var59 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var59 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var59 = texels[(var58 >>> 26) + (var58 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var59 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var59 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				int var60 = var32 + var58;
 				int var61;
-				if ((var61 = arg1[(var60 >>> 26) + (var60 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var61 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var61 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var61 = texels[(var60 >>> 26) + (var60 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var61 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var61 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				int var62 = var32 + var60;
 				int var63;
-				if ((var63 = arg1[(var62 >>> 26) + (var62 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var63 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var63 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var63 = texels[(var62 >>> 26) + (var62 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var63 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var63 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				int var64 = var32 + var62;
 				int var65;
-				if ((var65 = arg1[(var64 >>> 26) + (var64 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var65 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var65 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var65 = texels[(var64 >>> 26) + (var64 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var65 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var65 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				int var66 = var32 + var64;
 				int var67;
-				if ((var67 = arg1[(var66 >>> 26) + (var66 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var67 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var67 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var67 = texels[(var66 >>> 26) + (var66 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var67 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var67 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				int var68 = var32 + var66;
 				int var69;
-				if ((var69 = arg1[(var68 >>> 26) + (var68 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var69 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var69 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var69 = texels[(var68 >>> 26) + (var68 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var69 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var69 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				int var70 = var32 + var68;
 				int var71;
-				if ((var71 = arg1[(var70 >>> 26) + (var70 & 0xFC0)]) != 0) {
-					arg0[var15] = ((var71 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var71 & 0xFF00) * var35 & 0xFF0000) >> 8;
+				if ((var71 = texels[(var70 >>> 26) + (var70 & 0xFC0)]) != 0) {
+					pixel_buffer[offset_px] = ((var71 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var71 & 0xFF00) * var35 & 0xFF0000) >> 8;
 				}
-				var15++;
+				offset_px++;
 				var10000 = var32 + var70;
 				int var73 = var29;
 				int var74 = var30;
-				var25 += arg12;
-				var26 += arg13;
-				var27 += arg14;
+				var25 += step_u;
+				var26 += step_v;
+				var27 += step_w;
 				int var75 = var27 >> 12;
 				if (var75 == 0) {
 					var29 = 0;
@@ -2223,21 +2225,21 @@ public class Pix3D extends Pix2D {
 				}
 				var31 = (var73 << 20) + var74;
 				var32 = (var29 - var73 >> 3 << 20) + (var30 - var74 >> 3);
-				var16 += var34;
-				var35 = var16 >> 8;
+				curr_color_ish8 += var34;
+				var35 = curr_color_ish8 >> 8;
 				var33--;
 			} while (var33 > 0);
 		}
-		int var76 = arg6 - arg5 & 0x7;
+		int var76 = x_end - x_start & 0x7;
 		if (var76 <= 0) {
 			return;
 		}
 		do {
 			int var77;
-			if ((var77 = arg1[(var31 >>> 26) + (var31 & 0xFC0)]) != 0) {
-				arg0[var15] = ((var77 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var77 & 0xFF00) * var35 & 0xFF0000) >> 8;
+			if ((var77 = texels[(var31 >>> 26) + (var31 & 0xFC0)]) != 0) {
+				pixel_buffer[offset_px] = ((var77 & 0xFF00FF) * var35 & 0xFF00FF00) + ((var77 & 0xFF00) * var35 & 0xFF0000) >> 8;
 			}
-			var15++;
+			offset_px++;
 			var31 += var32;
 			var76--;
 		} while (var76 > 0);
