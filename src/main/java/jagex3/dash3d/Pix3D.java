@@ -1268,39 +1268,39 @@ public class Pix3D extends Pix2D {
 
 	@ObfuscatedName("fx.cp(IIIIIIIIIIIIIIIIIII)V")
 	// textureTriangle?
-	public static final void textureTriangle(int screen_x0, int screen_x1, int screen_x2, int screen_y0, int screen_y1, int screen_y2, int color_a, int color_b, int color_c, int ortho_xp, int ortho_xm, int ortho_xn, int ortho_yp, int ortho_ym, int ortho_yn, int ortho_zp, int ortho_zm, int ortho_zn, int texture) {
+	public static final void textureTriangle(int screen__y0, int screen__y1, int screen__y2, int screen__x0, int screen__x1, int screen__x2, int color_a, int color_b, int color_c, int ortho_xp, int ortho_xm, int ortho_xn, int ortho_yp, int ortho_ym, int ortho_yn, int ortho_zp, int ortho_zm, int ortho_zn, int texture) {
 		int[] texels = textureProvider.getTexels(texture);
 		if (texels == null) {
 			int average_rgb = textureProvider.getAverageRgb(texture);
-			gouraudTriangle(screen_x0, screen_x1, screen_x2, screen_y0, screen_y1, screen_y2, method2773(average_rgb, color_a), method2773(average_rgb, color_b), method2773(average_rgb, color_c));
+			gouraudTriangle(screen__y0, screen__y1, screen__y2, screen__x0, screen__x1, screen__x2, method2773(average_rgb, color_a), method2773(average_rgb, color_b), method2773(average_rgb, color_c));
 			return;
 		}
 		lowDetail = textureProvider.isLowDetail(texture);
 		opaque = textureProvider.isOpaque(texture);
-		int dy_ab = screen_y1 - screen_y0;
-		int dx_ab = screen_x1 - screen_x0;
-		int dy_ac = screen_y2 - screen_y0;
-		int dx_ac = screen_x2 - screen_x0;
+		int dx_ab = screen__x1 - screen__x0;
+		int dy_ab = screen__y1 - screen__y0;
+		int dx_ac = screen__x2 - screen__x0;
+		int dy_ac = screen__y2 - screen__y0;
 		int dblend_ab = color_b - color_a;
 		int dblend_ac = color_c - color_a;
 		int step_dydx_ab = 0;
-		if (screen_x0 != screen_x1) {
-			step_dydx_ab = (screen_y1 - screen_y0 << 16) / (screen_x1 - screen_x0);
+		if (screen__y0 != screen__y1) {
+			step_dydx_ab = (screen__x1 - screen__x0 << 16) / (screen__y1 - screen__y0);
 		}
 		int step_dydx_bc = 0;
-		if (screen_x1 != screen_x2) {
-			step_dydx_bc = (screen_y2 - screen_y1 << 16) / (screen_x2 - screen_x1);
+		if (screen__y1 != screen__y2) {
+			step_dydx_bc = (screen__x2 - screen__x1 << 16) / (screen__y2 - screen__y1);
 		}
 		int step_dydx_ca = 0;
-		if (screen_x0 != screen_x2) {
-			step_dydx_ca = (screen_y0 - screen_y2 << 16) / (screen_x0 - screen_x2);
+		if (screen__y0 != screen__y2) {
+			step_dydx_ca = (screen__x0 - screen__x2 << 16) / (screen__y0 - screen__y2);
 		}
-		int dot_product_ab_ac = dy_ab * dx_ac - dx_ab * dy_ac;
+		int dot_product_ab_ac = dx_ab * dy_ac - dy_ab * dx_ac;
 		if (dot_product_ab_ac == 0) {
 			return;
 		}
-		int var31 = (dx_ac * dblend_ab - dx_ab * dblend_ac << 9) / dot_product_ab_ac;
-		int var32 = (dy_ab * dblend_ac - dy_ac * dblend_ab << 9) / dot_product_ab_ac;
+		int dx_blend = (dy_ac * dblend_ab - dy_ab * dblend_ac << 9) / dot_product_ab_ac;
+		int dy_blend = (dx_ab * dblend_ac - dx_ac * dblend_ab << 9) / dot_product_ab_ac;
 		int vecm_x = ortho_xp - ortho_xm;
 		int vecm_y = ortho_yp - ortho_ym;
 		int vecm_z = ortho_zp - ortho_zm;
@@ -1316,37 +1316,37 @@ public class Pix3D extends Pix2D {
 		int mxn_zhat = vecm_y * nvecn_x - vecm_x * nvecn_y << 14;
 		int mxn_xhat = vecm_z * nvecn_y - vecm_y * nvecn_z << 8;
 		int mxn_yhat = vecm_x * nvecn_z - vecm_z * nvecn_x << 5;
-		if (screen_x0 <= screen_x1 && screen_x0 <= screen_x2) {
-			if (screen_x0 < field2532) {
-				if (screen_x1 > field2532) {
-					screen_x1 = field2532;
+		if (screen__y0 <= screen__y1 && screen__y0 <= screen__y2) {
+			if (screen__y0 < field2532) {
+				if (screen__y1 > field2532) {
+					screen__y1 = field2532;
 				}
-				if (screen_x2 > field2532) {
-					screen_x2 = field2532;
+				if (screen__y2 > field2532) {
+					screen__y2 = field2532;
 				}
-				int var48 = (color_a << 9) - screen_y0 * var31 + var31;
-				if (screen_x1 < screen_x2) {
-					int var49;
-					int cur_v = var49 = screen_y0 << 16;
-					if (screen_x0 < 0) {
-						cur_v -= screen_x0 * step_dydx_ca;
-						var49 -= screen_x0 * step_dydx_ab;
-						var48 -= screen_x0 * var32;
-						screen_x0 = 0;
+				int color_start = (color_a << 9) - screen__x0 * dx_blend + dx_blend;
+				if (screen__y1 < screen__y2) {
+					int x_start;
+					int y_one = x_start = screen__x0 << 16;
+					if (screen__y0 < 0) {
+						y_one -= screen__y0 * step_dydx_ca;
+						x_start -= screen__y0 * step_dydx_ab;
+						color_start -= screen__y0 * dy_blend;
+						screen__y0 = 0;
 					}
-					int cur_w = screen_y1 << 16;
-					if (screen_x1 < 0) {
-						cur_w -= screen_x1 * step_dydx_bc;
-						screen_x1 = 0;
+					int y_two = screen__x1 << 16;
+					if (screen__y1 < 0) {
+						y_two -= screen__y1 * step_dydx_bc;
+						screen__y1 = 0;
 					}
-					int shift_center_dy = screen_x0 - centerY;
+					int shift_center_dy = screen__y0 - centerY;
 					int v_walk = pxn_yhat * shift_center_dy + pxn_zhat;
 					int u_walk = pxm_yhat * shift_center_dy + pxm_zhat;
 					int w_walk = mxn_yhat * shift_center_dy + mxn_zhat;
-					if (screen_x0 != screen_x1 && step_dydx_ca < step_dydx_ab || screen_x0 == screen_x1 && step_dydx_ca > step_dydx_bc) {
-						int dscreenx_bc = screen_x2 - screen_x1;
-						int dscreenx_ab = screen_x1 - screen_x0;
-						int yoffset = field2527[screen_x0];
+					if (screen__y0 != screen__y1 && step_dydx_ca < step_dydx_ab || screen__y0 == screen__y1 && step_dydx_ca > step_dydx_bc) {
+						int dscreenx_bc = screen__y2 - screen__y1;
+						int dscreenx_ab = screen__y1 - screen__y0;
+						int yoffset = field2527[screen__y0];
 						while (true) {
 							dscreenx_ab--;
 							if (dscreenx_ab < 0) {
@@ -1355,29 +1355,29 @@ public class Pix3D extends Pix2D {
 									if (dscreenx_bc < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, yoffset, cur_v >> 16, cur_w >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
-									cur_v += step_dydx_ca;
-									cur_w += step_dydx_bc;
-									var48 += var32;
+									rasterTexture(Pix2D.data, texels, 0, 0, yoffset, y_one >> 16, y_two >> 16, color_start, dx_blend, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
+									y_one += step_dydx_ca;
+									y_two += step_dydx_bc;
+									color_start += dy_blend;
 									yoffset += Pix2D.width2d;
 									v_walk += pxn_yhat;
 									u_walk += pxm_yhat;
 									w_walk += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, yoffset, cur_v >> 16, var49 >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
-							cur_v += step_dydx_ca;
-							var49 += step_dydx_ab;
-							var48 += var32;
+							rasterTexture(Pix2D.data, texels, 0, 0, yoffset, y_one >> 16, x_start >> 16, color_start, dx_blend, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
+							y_one += step_dydx_ca;
+							x_start += step_dydx_ab;
+							color_start += dy_blend;
 							yoffset += Pix2D.width2d;
 							v_walk += pxn_yhat;
 							u_walk += pxm_yhat;
 							w_walk += mxn_yhat;
 						}
 					} else {
-						int var59 = screen_x2 - screen_x1;
-						int var60 = screen_x1 - screen_x0;
-						int var61 = field2527[screen_x0];
+						int var59 = screen__y2 - screen__y1;
+						int var60 = screen__y1 - screen__y0;
+						int var61 = field2527[screen__y0];
 						while (true) {
 							var60--;
 							if (var60 < 0) {
@@ -1386,20 +1386,20 @@ public class Pix3D extends Pix2D {
 									if (var59 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var61, cur_w >> 16, cur_v >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
-									cur_v += step_dydx_ca;
-									cur_w += step_dydx_bc;
-									var48 += var32;
+									rasterTexture(Pix2D.data, texels, 0, 0, var61, y_two >> 16, y_one >> 16, color_start, dx_blend, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
+									y_one += step_dydx_ca;
+									y_two += step_dydx_bc;
+									color_start += dy_blend;
 									var61 += Pix2D.width2d;
 									v_walk += pxn_yhat;
 									u_walk += pxm_yhat;
 									w_walk += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var61, var49 >> 16, cur_v >> 16, var48, var31, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
-							cur_v += step_dydx_ca;
-							var49 += step_dydx_ab;
-							var48 += var32;
+							rasterTexture(Pix2D.data, texels, 0, 0, var61, x_start >> 16, y_one >> 16, color_start, dx_blend, v_walk, u_walk, w_walk, pxn_xhat, pxm_xhat, mxn_xhat);
+							y_one += step_dydx_ca;
+							x_start += step_dydx_ab;
+							color_start += dy_blend;
 							var61 += Pix2D.width2d;
 							v_walk += pxn_yhat;
 							u_walk += pxm_yhat;
@@ -1408,26 +1408,26 @@ public class Pix3D extends Pix2D {
 					}
 				} else {
 					int var62;
-					int var63 = var62 = screen_y0 << 16;
-					if (screen_x0 < 0) {
-						var63 -= screen_x0 * step_dydx_ca;
-						var62 -= screen_x0 * step_dydx_ab;
-						var48 -= screen_x0 * var32;
-						screen_x0 = 0;
+					int var63 = var62 = screen__x0 << 16;
+					if (screen__y0 < 0) {
+						var63 -= screen__y0 * step_dydx_ca;
+						var62 -= screen__y0 * step_dydx_ab;
+						color_start -= screen__y0 * dy_blend;
+						screen__y0 = 0;
 					}
-					int var64 = screen_y2 << 16;
-					if (screen_x2 < 0) {
-						var64 -= screen_x2 * step_dydx_bc;
-						screen_x2 = 0;
+					int var64 = screen__x2 << 16;
+					if (screen__y2 < 0) {
+						var64 -= screen__y2 * step_dydx_bc;
+						screen__y2 = 0;
 					}
-					int var65 = screen_x0 - centerY;
+					int var65 = screen__y0 - centerY;
 					int var66 = pxn_yhat * var65 + pxn_zhat;
 					int var67 = pxm_yhat * var65 + pxm_zhat;
 					int var68 = mxn_yhat * var65 + mxn_zhat;
-					if ((screen_x0 == screen_x2 || step_dydx_ca >= step_dydx_ab) && (screen_x0 != screen_x2 || step_dydx_bc <= step_dydx_ab)) {
-						int var72 = screen_x1 - screen_x2;
-						int var73 = screen_x2 - screen_x0;
-						int var74 = field2527[screen_x0];
+					if ((screen__y0 == screen__y2 || step_dydx_ca >= step_dydx_ab) && (screen__y0 != screen__y2 || step_dydx_bc <= step_dydx_ab)) {
+						int var72 = screen__y1 - screen__y2;
+						int var73 = screen__y2 - screen__y0;
+						int var74 = field2527[screen__y0];
 						while (true) {
 							var73--;
 							if (var73 < 0) {
@@ -1436,29 +1436,29 @@ public class Pix3D extends Pix2D {
 									if (var72 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var74, var62 >> 16, var64 >> 16, var48, var31, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, var74, var62 >> 16, var64 >> 16, color_start, dx_blend, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
 									var64 += step_dydx_bc;
 									var62 += step_dydx_ab;
-									var48 += var32;
+									color_start += dy_blend;
 									var74 += Pix2D.width2d;
 									var66 += pxn_yhat;
 									var67 += pxm_yhat;
 									var68 += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var74, var62 >> 16, var63 >> 16, var48, var31, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, var74, var62 >> 16, var63 >> 16, color_start, dx_blend, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
 							var63 += step_dydx_ca;
 							var62 += step_dydx_ab;
-							var48 += var32;
+							color_start += dy_blend;
 							var74 += Pix2D.width2d;
 							var66 += pxn_yhat;
 							var67 += pxm_yhat;
 							var68 += mxn_yhat;
 						}
 					} else {
-						int var69 = screen_x1 - screen_x2;
-						int var70 = screen_x2 - screen_x0;
-						int var71 = field2527[screen_x0];
+						int var69 = screen__y1 - screen__y2;
+						int var70 = screen__y2 - screen__y0;
+						int var71 = field2527[screen__y0];
 						while (true) {
 							var70--;
 							if (var70 < 0) {
@@ -1467,20 +1467,20 @@ public class Pix3D extends Pix2D {
 									if (var69 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var71, var64 >> 16, var62 >> 16, var48, var31, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, var71, var64 >> 16, var62 >> 16, color_start, dx_blend, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
 									var64 += step_dydx_bc;
 									var62 += step_dydx_ab;
-									var48 += var32;
+									color_start += dy_blend;
 									var71 += Pix2D.width2d;
 									var66 += pxn_yhat;
 									var67 += pxm_yhat;
 									var68 += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var71, var63 >> 16, var62 >> 16, var48, var31, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, var71, var63 >> 16, var62 >> 16, color_start, dx_blend, var66, var67, var68, pxn_xhat, pxm_xhat, mxn_xhat);
 							var63 += step_dydx_ca;
 							var62 += step_dydx_ab;
-							var48 += var32;
+							color_start += dy_blend;
 							var71 += Pix2D.width2d;
 							var66 += pxn_yhat;
 							var67 += pxm_yhat;
@@ -1489,37 +1489,37 @@ public class Pix3D extends Pix2D {
 					}
 				}
 			}
-		} else if (screen_x1 <= screen_x2) {
-			if (screen_x1 < field2532) {
-				if (screen_x2 > field2532) {
-					screen_x2 = field2532;
+		} else if (screen__y1 <= screen__y2) {
+			if (screen__y1 < field2532) {
+				if (screen__y2 > field2532) {
+					screen__y2 = field2532;
 				}
-				if (screen_x0 > field2532) {
-					screen_x0 = field2532;
+				if (screen__y0 > field2532) {
+					screen__y0 = field2532;
 				}
-				int var75 = (color_b << 9) - screen_y1 * var31 + var31;
-				if (screen_x2 < screen_x0) {
+				int var75 = (color_b << 9) - screen__x1 * dx_blend + dx_blend;
+				if (screen__y2 < screen__y0) {
 					int var76;
-					int var77 = var76 = screen_y1 << 16;
-					if (screen_x1 < 0) {
-						var77 -= screen_x1 * step_dydx_ab;
-						var76 -= screen_x1 * step_dydx_bc;
-						var75 -= screen_x1 * var32;
-						screen_x1 = 0;
+					int var77 = var76 = screen__x1 << 16;
+					if (screen__y1 < 0) {
+						var77 -= screen__y1 * step_dydx_ab;
+						var76 -= screen__y1 * step_dydx_bc;
+						var75 -= screen__y1 * dy_blend;
+						screen__y1 = 0;
 					}
-					int var78 = screen_y2 << 16;
-					if (screen_x2 < 0) {
-						var78 -= screen_x2 * step_dydx_ca;
-						screen_x2 = 0;
+					int var78 = screen__x2 << 16;
+					if (screen__y2 < 0) {
+						var78 -= screen__y2 * step_dydx_ca;
+						screen__y2 = 0;
 					}
-					int var79 = screen_x1 - centerY;
+					int var79 = screen__y1 - centerY;
 					int var80 = pxn_yhat * var79 + pxn_zhat;
 					int var81 = pxm_yhat * var79 + pxm_zhat;
 					int var82 = mxn_yhat * var79 + mxn_zhat;
-					if (screen_x1 != screen_x2 && step_dydx_ab < step_dydx_bc || screen_x1 == screen_x2 && step_dydx_ab > step_dydx_ca) {
-						int var83 = screen_x0 - screen_x2;
-						int var84 = screen_x2 - screen_x1;
-						int var85 = field2527[screen_x1];
+					if (screen__y1 != screen__y2 && step_dydx_ab < step_dydx_bc || screen__y1 == screen__y2 && step_dydx_ab > step_dydx_ca) {
+						int var83 = screen__y0 - screen__y2;
+						int var84 = screen__y2 - screen__y1;
+						int var85 = field2527[screen__y1];
 						while (true) {
 							var84--;
 							if (var84 < 0) {
@@ -1528,29 +1528,29 @@ public class Pix3D extends Pix2D {
 									if (var83 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var85, var77 >> 16, var78 >> 16, var75, var31, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, var85, var77 >> 16, var78 >> 16, var75, dx_blend, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
 									var77 += step_dydx_ab;
 									var78 += step_dydx_ca;
-									var75 += var32;
+									var75 += dy_blend;
 									var85 += Pix2D.width2d;
 									var80 += pxn_yhat;
 									var81 += pxm_yhat;
 									var82 += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var85, var77 >> 16, var76 >> 16, var75, var31, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, var85, var77 >> 16, var76 >> 16, var75, dx_blend, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
 							var77 += step_dydx_ab;
 							var76 += step_dydx_bc;
-							var75 += var32;
+							var75 += dy_blend;
 							var85 += Pix2D.width2d;
 							var80 += pxn_yhat;
 							var81 += pxm_yhat;
 							var82 += mxn_yhat;
 						}
 					} else {
-						int var86 = screen_x0 - screen_x2;
-						int var87 = screen_x2 - screen_x1;
-						int var88 = field2527[screen_x1];
+						int var86 = screen__y0 - screen__y2;
+						int var87 = screen__y2 - screen__y1;
+						int var88 = field2527[screen__y1];
 						while (true) {
 							var87--;
 							if (var87 < 0) {
@@ -1559,20 +1559,20 @@ public class Pix3D extends Pix2D {
 									if (var86 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var88, var78 >> 16, var77 >> 16, var75, var31, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, var88, var78 >> 16, var77 >> 16, var75, dx_blend, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
 									var77 += step_dydx_ab;
 									var78 += step_dydx_ca;
-									var75 += var32;
+									var75 += dy_blend;
 									var88 += Pix2D.width2d;
 									var80 += pxn_yhat;
 									var81 += pxm_yhat;
 									var82 += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var88, var76 >> 16, var77 >> 16, var75, var31, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, var88, var76 >> 16, var77 >> 16, var75, dx_blend, var80, var81, var82, pxn_xhat, pxm_xhat, mxn_xhat);
 							var77 += step_dydx_ab;
 							var76 += step_dydx_bc;
-							var75 += var32;
+							var75 += dy_blend;
 							var88 += Pix2D.width2d;
 							var80 += pxn_yhat;
 							var81 += pxm_yhat;
@@ -1581,26 +1581,26 @@ public class Pix3D extends Pix2D {
 					}
 				} else {
 					int var89;
-					int var90 = var89 = screen_y1 << 16;
-					if (screen_x1 < 0) {
-						var90 -= screen_x1 * step_dydx_ab;
-						var89 -= screen_x1 * step_dydx_bc;
-						var75 -= screen_x1 * var32;
-						screen_x1 = 0;
+					int var90 = var89 = screen__x1 << 16;
+					if (screen__y1 < 0) {
+						var90 -= screen__y1 * step_dydx_ab;
+						var89 -= screen__y1 * step_dydx_bc;
+						var75 -= screen__y1 * dy_blend;
+						screen__y1 = 0;
 					}
-					int var91 = screen_y0 << 16;
-					if (screen_x0 < 0) {
-						var91 -= screen_x0 * step_dydx_ca;
-						screen_x0 = 0;
+					int var91 = screen__x0 << 16;
+					if (screen__y0 < 0) {
+						var91 -= screen__y0 * step_dydx_ca;
+						screen__y0 = 0;
 					}
-					int var92 = screen_x1 - centerY;
+					int var92 = screen__y1 - centerY;
 					int var93 = pxn_yhat * var92 + pxn_zhat;
 					int var94 = pxm_yhat * var92 + pxm_zhat;
 					int var95 = mxn_yhat * var92 + mxn_zhat;
 					if (step_dydx_ab < step_dydx_bc) {
-						int var96 = screen_x2 - screen_x0;
-						int var97 = screen_x0 - screen_x1;
-						int var98 = field2527[screen_x1];
+						int var96 = screen__y2 - screen__y0;
+						int var97 = screen__y0 - screen__y1;
+						int var98 = field2527[screen__y1];
 						while (true) {
 							var97--;
 							if (var97 < 0) {
@@ -1609,29 +1609,29 @@ public class Pix3D extends Pix2D {
 									if (var96 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var98, var91 >> 16, var89 >> 16, var75, var31, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, var98, var91 >> 16, var89 >> 16, var75, dx_blend, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
 									var91 += step_dydx_ca;
 									var89 += step_dydx_bc;
-									var75 += var32;
+									var75 += dy_blend;
 									var98 += Pix2D.width2d;
 									var93 += pxn_yhat;
 									var94 += pxm_yhat;
 									var95 += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var98, var90 >> 16, var89 >> 16, var75, var31, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, var98, var90 >> 16, var89 >> 16, var75, dx_blend, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
 							var90 += step_dydx_ab;
 							var89 += step_dydx_bc;
-							var75 += var32;
+							var75 += dy_blend;
 							var98 += Pix2D.width2d;
 							var93 += pxn_yhat;
 							var94 += pxm_yhat;
 							var95 += mxn_yhat;
 						}
 					} else {
-						int var99 = screen_x2 - screen_x0;
-						int var100 = screen_x0 - screen_x1;
-						int var101 = field2527[screen_x1];
+						int var99 = screen__y2 - screen__y0;
+						int var100 = screen__y0 - screen__y1;
+						int var101 = field2527[screen__y1];
 						while (true) {
 							var100--;
 							if (var100 < 0) {
@@ -1640,20 +1640,20 @@ public class Pix3D extends Pix2D {
 									if (var99 < 0) {
 										return;
 									}
-									rasterTexture(Pix2D.data, texels, 0, 0, var101, var89 >> 16, var91 >> 16, var75, var31, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
+									rasterTexture(Pix2D.data, texels, 0, 0, var101, var89 >> 16, var91 >> 16, var75, dx_blend, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
 									var91 += step_dydx_ca;
 									var89 += step_dydx_bc;
-									var75 += var32;
+									var75 += dy_blend;
 									var101 += Pix2D.width2d;
 									var93 += pxn_yhat;
 									var94 += pxm_yhat;
 									var95 += mxn_yhat;
 								}
 							}
-							rasterTexture(Pix2D.data, texels, 0, 0, var101, var89 >> 16, var90 >> 16, var75, var31, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
+							rasterTexture(Pix2D.data, texels, 0, 0, var101, var89 >> 16, var90 >> 16, var75, dx_blend, var93, var94, var95, pxn_xhat, pxm_xhat, mxn_xhat);
 							var90 += step_dydx_ab;
 							var89 += step_dydx_bc;
-							var75 += var32;
+							var75 += dy_blend;
 							var101 += Pix2D.width2d;
 							var93 += pxn_yhat;
 							var94 += pxm_yhat;
@@ -1662,36 +1662,36 @@ public class Pix3D extends Pix2D {
 					}
 				}
 			}
-		} else if (screen_x2 < field2532) {
-			if (screen_x0 > field2532) {
-				screen_x0 = field2532;
+		} else if (screen__y2 < field2532) {
+			if (screen__y0 > field2532) {
+				screen__y0 = field2532;
 			}
-			if (screen_x1 > field2532) {
-				screen_x1 = field2532;
+			if (screen__y1 > field2532) {
+				screen__y1 = field2532;
 			}
-			int var102 = (color_c << 9) - screen_y2 * var31 + var31;
-			if (screen_x0 < screen_x1) {
+			int var102 = (color_c << 9) - screen__x2 * dx_blend + dx_blend;
+			if (screen__y0 < screen__y1) {
 				int var103;
-				int var104 = var103 = screen_y2 << 16;
-				if (screen_x2 < 0) {
-					var104 -= screen_x2 * step_dydx_bc;
-					var103 -= screen_x2 * step_dydx_ca;
-					var102 -= screen_x2 * var32;
-					screen_x2 = 0;
+				int var104 = var103 = screen__x2 << 16;
+				if (screen__y2 < 0) {
+					var104 -= screen__y2 * step_dydx_bc;
+					var103 -= screen__y2 * step_dydx_ca;
+					var102 -= screen__y2 * dy_blend;
+					screen__y2 = 0;
 				}
-				int var105 = screen_y0 << 16;
-				if (screen_x0 < 0) {
-					var105 -= screen_x0 * step_dydx_ab;
-					screen_x0 = 0;
+				int var105 = screen__x0 << 16;
+				if (screen__y0 < 0) {
+					var105 -= screen__y0 * step_dydx_ab;
+					screen__y0 = 0;
 				}
-				int var106 = screen_x2 - centerY;
+				int var106 = screen__y2 - centerY;
 				int var107 = pxn_yhat * var106 + pxn_zhat;
 				int var108 = pxm_yhat * var106 + pxm_zhat;
 				int var109 = mxn_yhat * var106 + mxn_zhat;
 				if (step_dydx_bc < step_dydx_ca) {
-					int var110 = screen_x1 - screen_x0;
-					int var111 = screen_x0 - screen_x2;
-					int var112 = field2527[screen_x2];
+					int var110 = screen__y1 - screen__y0;
+					int var111 = screen__y0 - screen__y2;
+					int var112 = field2527[screen__y2];
 					while (true) {
 						var111--;
 						if (var111 < 0) {
@@ -1700,29 +1700,29 @@ public class Pix3D extends Pix2D {
 								if (var110 < 0) {
 									return;
 								}
-								rasterTexture(Pix2D.data, texels, 0, 0, var112, var104 >> 16, var105 >> 16, var102, var31, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
+								rasterTexture(Pix2D.data, texels, 0, 0, var112, var104 >> 16, var105 >> 16, var102, dx_blend, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
 								var104 += step_dydx_bc;
 								var105 += step_dydx_ab;
-								var102 += var32;
+								var102 += dy_blend;
 								var112 += Pix2D.width2d;
 								var107 += pxn_yhat;
 								var108 += pxm_yhat;
 								var109 += mxn_yhat;
 							}
 						}
-						rasterTexture(Pix2D.data, texels, 0, 0, var112, var104 >> 16, var103 >> 16, var102, var31, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
+						rasterTexture(Pix2D.data, texels, 0, 0, var112, var104 >> 16, var103 >> 16, var102, dx_blend, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
 						var104 += step_dydx_bc;
 						var103 += step_dydx_ca;
-						var102 += var32;
+						var102 += dy_blend;
 						var112 += Pix2D.width2d;
 						var107 += pxn_yhat;
 						var108 += pxm_yhat;
 						var109 += mxn_yhat;
 					}
 				} else {
-					int var113 = screen_x1 - screen_x0;
-					int var114 = screen_x0 - screen_x2;
-					int var115 = field2527[screen_x2];
+					int var113 = screen__y1 - screen__y0;
+					int var114 = screen__y0 - screen__y2;
+					int var115 = field2527[screen__y2];
 					while (true) {
 						var114--;
 						if (var114 < 0) {
@@ -1731,20 +1731,20 @@ public class Pix3D extends Pix2D {
 								if (var113 < 0) {
 									return;
 								}
-								rasterTexture(Pix2D.data, texels, 0, 0, var115, var105 >> 16, var104 >> 16, var102, var31, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
+								rasterTexture(Pix2D.data, texels, 0, 0, var115, var105 >> 16, var104 >> 16, var102, dx_blend, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
 								var104 += step_dydx_bc;
 								var105 += step_dydx_ab;
-								var102 += var32;
+								var102 += dy_blend;
 								var115 += Pix2D.width2d;
 								var107 += pxn_yhat;
 								var108 += pxm_yhat;
 								var109 += mxn_yhat;
 							}
 						}
-						rasterTexture(Pix2D.data, texels, 0, 0, var115, var103 >> 16, var104 >> 16, var102, var31, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
+						rasterTexture(Pix2D.data, texels, 0, 0, var115, var103 >> 16, var104 >> 16, var102, dx_blend, var107, var108, var109, pxn_xhat, pxm_xhat, mxn_xhat);
 						var104 += step_dydx_bc;
 						var103 += step_dydx_ca;
-						var102 += var32;
+						var102 += dy_blend;
 						var115 += Pix2D.width2d;
 						var107 += pxn_yhat;
 						var108 += pxm_yhat;
@@ -1753,26 +1753,26 @@ public class Pix3D extends Pix2D {
 				}
 			} else {
 				int var116;
-				int var117 = var116 = screen_y2 << 16;
-				if (screen_x2 < 0) {
-					var117 -= screen_x2 * step_dydx_bc;
-					var116 -= screen_x2 * step_dydx_ca;
-					var102 -= screen_x2 * var32;
-					screen_x2 = 0;
+				int var117 = var116 = screen__x2 << 16;
+				if (screen__y2 < 0) {
+					var117 -= screen__y2 * step_dydx_bc;
+					var116 -= screen__y2 * step_dydx_ca;
+					var102 -= screen__y2 * dy_blend;
+					screen__y2 = 0;
 				}
-				int var118 = screen_y1 << 16;
-				if (screen_x1 < 0) {
-					var118 -= screen_x1 * step_dydx_ab;
-					screen_x1 = 0;
+				int var118 = screen__x1 << 16;
+				if (screen__y1 < 0) {
+					var118 -= screen__y1 * step_dydx_ab;
+					screen__y1 = 0;
 				}
-				int var119 = screen_x2 - centerY;
+				int var119 = screen__y2 - centerY;
 				int var120 = pxn_yhat * var119 + pxn_zhat;
 				int var121 = pxm_yhat * var119 + pxm_zhat;
 				int var122 = mxn_yhat * var119 + mxn_zhat;
 				if (step_dydx_bc < step_dydx_ca) {
-					int var123 = screen_x0 - screen_x1;
-					int var124 = screen_x1 - screen_x2;
-					int var125 = field2527[screen_x2];
+					int var123 = screen__y0 - screen__y1;
+					int var124 = screen__y1 - screen__y2;
+					int var125 = field2527[screen__y2];
 					while (true) {
 						var124--;
 						if (var124 < 0) {
@@ -1781,29 +1781,29 @@ public class Pix3D extends Pix2D {
 								if (var123 < 0) {
 									return;
 								}
-								rasterTexture(Pix2D.data, texels, 0, 0, var125, var118 >> 16, var116 >> 16, var102, var31, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
+								rasterTexture(Pix2D.data, texels, 0, 0, var125, var118 >> 16, var116 >> 16, var102, dx_blend, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
 								var118 += step_dydx_ab;
 								var116 += step_dydx_ca;
-								var102 += var32;
+								var102 += dy_blend;
 								var125 += Pix2D.width2d;
 								var120 += pxn_yhat;
 								var121 += pxm_yhat;
 								var122 += mxn_yhat;
 							}
 						}
-						rasterTexture(Pix2D.data, texels, 0, 0, var125, var117 >> 16, var116 >> 16, var102, var31, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
+						rasterTexture(Pix2D.data, texels, 0, 0, var125, var117 >> 16, var116 >> 16, var102, dx_blend, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
 						var117 += step_dydx_bc;
 						var116 += step_dydx_ca;
-						var102 += var32;
+						var102 += dy_blend;
 						var125 += Pix2D.width2d;
 						var120 += pxn_yhat;
 						var121 += pxm_yhat;
 						var122 += mxn_yhat;
 					}
 				} else {
-					int var126 = screen_x0 - screen_x1;
-					int var127 = screen_x1 - screen_x2;
-					int var128 = field2527[screen_x2];
+					int var126 = screen__y0 - screen__y1;
+					int var127 = screen__y1 - screen__y2;
+					int var128 = field2527[screen__y2];
 					while (true) {
 						var127--;
 						if (var127 < 0) {
@@ -1812,20 +1812,20 @@ public class Pix3D extends Pix2D {
 								if (var126 < 0) {
 									return;
 								}
-								rasterTexture(Pix2D.data, texels, 0, 0, var128, var116 >> 16, var118 >> 16, var102, var31, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
+								rasterTexture(Pix2D.data, texels, 0, 0, var128, var116 >> 16, var118 >> 16, var102, dx_blend, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
 								var118 += step_dydx_ab;
 								var116 += step_dydx_ca;
-								var102 += var32;
+								var102 += dy_blend;
 								var128 += Pix2D.width2d;
 								var120 += pxn_yhat;
 								var121 += pxm_yhat;
 								var122 += mxn_yhat;
 							}
 						}
-						rasterTexture(Pix2D.data, texels, 0, 0, var128, var116 >> 16, var117 >> 16, var102, var31, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
+						rasterTexture(Pix2D.data, texels, 0, 0, var128, var116 >> 16, var117 >> 16, var102, dx_blend, var120, var121, var122, pxn_xhat, pxm_xhat, mxn_xhat);
 						var117 += step_dydx_bc;
 						var116 += step_dydx_ca;
-						var102 += var32;
+						var102 += dy_blend;
 						var128 += Pix2D.width2d;
 						var120 += pxn_yhat;
 						var121 += pxm_yhat;

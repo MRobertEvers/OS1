@@ -108,6 +108,6 @@ public class LocEntity extends Entity {
 		int var10 = var9[var5][var7] + var9[var6][var7] + var9[var5][var8] + var9[var6][var8] >> 2;
 		int var11 = (this.field2595 << 7) + (var3 << 6);
 		int var12 = (this.field2596 << 7) + (var4 << 6);
-		return var2.method2376(this.field2592, this.field2593, var9, var11, var10, var12, this.anim, this.animFrame);
+		return var2.getModelAnimated(this.field2592, this.field2593, var9, var11, var10, var12, this.anim, this.animFrame);
 	}
 }

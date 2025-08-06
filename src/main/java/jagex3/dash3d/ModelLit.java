@@ -45,7 +45,7 @@ public class ModelLit extends Entity {
 	public byte[] textureCoords;
 
 	@ObfuscatedName("fw.t")
-	public short[] field2704;
+	public short[] faceColors;
 
 	@ObfuscatedName("fw.f")
 	public short[] field2705;
@@ -299,7 +299,7 @@ public class ModelLit extends Entity {
 			this.textureCoords = new byte[var10];
 		}
 
-		this.field2704 = new short[var10];
+		this.faceColors = new short[var10];
 		if (var11 > 0) {
 			this.field2688 = new short[var11];
 			this.field2681 = new short[var11];
@@ -356,7 +356,7 @@ public class ModelLit extends Entity {
 		var7.pos = var40;
 		var8.pos = var39;
 		for (int var72 = 0; var72 < var10; var72++) {
-			this.field2704[var72] = (short) head.g2();
+			this.faceColors[var72] = (short) head.g2();
 			if (var12 == 1) {
 				this.field2679[var72] = var3.g1b();
 			}
@@ -566,7 +566,7 @@ public class ModelLit extends Entity {
 		if (var15 == 1) {
 			this.field2699 = new int[var10];
 		}
-		this.field2704 = new short[var10];
+		this.faceColors = new short[var10];
 		var4.pos = var21;
 		var5.pos = var36;
 		var6.pos = var38;
@@ -605,7 +605,7 @@ public class ModelLit extends Entity {
 		var7.pos = var30;
 		var8.pos = var27;
 		for (int var51 = 0; var51 < var10; var51++) {
-			this.field2704[var51] = (short) var4.g2();
+			this.faceColors[var51] = (short) var4.g2();
 			if (var12 == 1) {
 				int var52 = var5.g1();
 				if ((var52 & 0x1) == 1) {
@@ -616,8 +616,8 @@ public class ModelLit extends Entity {
 				}
 				if ((var52 & 0x2) == 2) {
 					this.textureCoords[var51] = (byte) (var52 >> 2);
-					this.field2705[var51] = this.field2704[var51];
-					this.field2704[var51] = 127;
+					this.field2705[var51] = this.faceColors[var51];
+					this.faceColors[var51] = 127;
 					if (this.field2705[var51] != -1) {
 						var3 = true;
 					}
@@ -770,7 +770,7 @@ public class ModelLit extends Entity {
 		if (var8) {
 			this.textureCoords = new byte[this.faceCount];
 		}
-		this.field2704 = new short[this.faceCount];
+		this.faceColors = new short[this.faceCount];
 		if (this.texturedFaceCount > 0) {
 			this.field2687 = new byte[this.texturedFaceCount];
 			this.field2688 = new short[this.texturedFaceCount];
@@ -821,7 +821,7 @@ public class ModelLit extends Entity {
 							this.textureCoords[this.faceCount] = (byte) (var12.textureCoords[var13] + this.texturedFaceCount);
 						}
 					}
-					this.field2704[this.faceCount] = var12.field2704[var13];
+					this.faceColors[this.faceCount] = var12.faceColors[var13];
 					this.faceVertexA[this.faceCount] = this.method2947(var12, var12.faceVertexA[var13]);
 					this.faceVertexB[this.faceCount] = this.method2947(var12, var12.faceVertexB[var13]);
 					this.faceVertexC[this.faceCount] = this.method2947(var12, var12.faceVertexC[var13]);
@@ -897,11 +897,11 @@ public class ModelLit extends Entity {
 			}
 		}
 		if (arg2) {
-			this.field2704 = arg0.field2704;
+			this.faceColors = arg0.faceColors;
 		} else {
-			this.field2704 = new short[this.faceCount];
+			this.faceColors = new short[this.faceCount];
 			for (int var7 = 0; var7 < this.faceCount; var7++) {
-				this.field2704[var7] = arg0.field2704[var7];
+				this.faceColors[var7] = arg0.faceColors[var7];
 			}
 		}
 		if (arg3 || arg0.field2705 == null) {
@@ -976,7 +976,7 @@ public class ModelLit extends Entity {
 		var1.field2680 = this.field2680;
 		var1.field2709 = this.field2709;
 		var1.textureCoords = this.textureCoords;
-		var1.field2704 = this.field2704;
+		var1.faceColors = this.faceColors;
 		var1.field2705 = this.field2705;
 		var1.field2684 = this.field2684;
 		var1.field2687 = this.field2687;
@@ -1033,7 +1033,7 @@ public class ModelLit extends Entity {
 			var15.field2680 = this.field2680;
 			var15.field2709 = this.field2709;
 			var15.textureCoords = this.textureCoords;
-			var15.field2704 = this.field2704;
+			var15.faceColors = this.faceColors;
 			var15.field2705 = this.field2705;
 			var15.field2684 = this.field2684;
 			var15.field2687 = this.field2687;
@@ -1195,8 +1195,8 @@ public class ModelLit extends Entity {
 	@ObfuscatedName("fw.aa(SS)V")
 	public void recolour(short arg0, short arg1) {
 		for (int var3 = 0; var3 < this.faceCount; var3++) {
-			if (this.field2704[var3] == arg0) {
-				this.field2704[var3] = arg1;
+			if (this.faceColors[var3] == arg0) {
+				this.faceColors[var3] = arg1;
 			}
 		}
 	}
@@ -1284,7 +1284,7 @@ public class ModelLit extends Entity {
 				var19 = this.field2679[f];
 			}
 
-			if (var19 == 0) {
+			if (var19 == 0 || true) {
 				VertexNormal n = this.vertexNormal[a];
 				n.x += var16;
 				n.y += var17;
@@ -1520,7 +1520,7 @@ public class ModelLit extends Entity {
 			}
 			if (var18 == -1) {
 				if (var16 == 0) {
-					int var19 = this.field2704[var15] & 0xFFFF;
+					int var19 = this.faceColors[var15] & 0xFFFF;
 					VertexNormal var20;
 					if (this.field2685 == null || this.field2685[this.faceVertexA[var15]] == null) {
 						var20 = this.vertexNormal[this.faceVertexA[var15]];
@@ -1548,7 +1548,7 @@ public class ModelLit extends Entity {
 				} else if (var16 == 1) {
 					FaceNormal var26 = this.faceNormal[var15];
 					int var27 = (var26.field550 * arg4 + var26.field552 * arg2 + var26.field551 * arg3) / (var7 / 2 + var7) + arg0;
-					var8.faceColorA[var15] = method2943(this.field2704[var15] & 0xFFFF, var27);
+					var8.faceColorA[var15] = method2943(this.faceColors[var15] & 0xFFFF, var27);
 					var8.faceColorC[var15] = -1;
 				} else if (var16 == 3) {
 					var8.faceColorA[var15] = 128;

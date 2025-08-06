@@ -3879,7 +3879,7 @@ public class Client extends GameShell {
 				int var25 = (var10 << 7) + (width << 6);
 				int var26 = (var11 << 7) + (length << 6);
 
-				ModelUnlit var27 = loc.method2386(var3, var4, var23, var25, locOffsetY, var26);
+				ModelUnlit var27 = loc.getLocModel(var3, var4, var23, var25, locOffsetY, var26);
 				if (var27 != null) {
 					appendLoc(currentLevel, var10, var11, var5, -1, 0, 0, var7 + 1, var0 + 1);
 					player.locStartCycle = loopCycle + var7;
