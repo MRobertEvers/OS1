@@ -1284,7 +1284,7 @@ public class ModelLit extends Entity {
 				var19 = this.field2679[f];
 			}
 
-			if (var19 == 0 || true) {
+			if (var19 == 0) {
 				VertexNormal n = this.vertexNormal[a];
 				n.x += var16;
 				n.y += var17;
@@ -1306,7 +1306,7 @@ public class ModelLit extends Entity {
 				if (this.faceNormal == null) {
 					this.faceNormal = new FaceNormal[this.faceCount];
 				}
-
+	
 				FaceNormal n = this.faceNormal[f] = new FaceNormal();
 				n.field552 = var16;
 				n.field551 = var17;
@@ -1434,6 +1434,8 @@ public class ModelLit extends Entity {
 					if (arg0.field2679 == null) {
 						arg0.field2679 = new byte[arg0.faceCount];
 					}
+
+					// Hidden face (facetype 2 is hidden)
 					arg0.field2679[var18] = 2;
 				}
 			}
@@ -1442,6 +1444,7 @@ public class ModelLit extends Entity {
 					if (arg1.field2679 == null) {
 						arg1.field2679 = new byte[arg1.faceCount];
 					}
+					// Hidden face (facetype 2 is hidden)
 					arg1.field2679[var19] = 2;
 				}
 			}

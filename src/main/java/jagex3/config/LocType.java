@@ -435,6 +435,8 @@ public class LocType extends DoublyLinkable {
 			if (this.sharelight) {
 				var10.field2708 = (short) (this.ambient + 64);
 				var10.field2706 = (short) (this.contrast + 768);
+				// This calculates the individual model normals and are not 
+				// the normals shared for lighting.
 				var10.calculateNormals();
 				var9 = var10;
 			} else {
@@ -456,7 +458,7 @@ public class LocType extends DoublyLinkable {
 	}
 
 	@ObfuscatedName("ey.e(II[[IIIII)Lfo;")
-	public final ModelUnlit method2386(int arg0, int arg1, int[][] arg2, int arg3, int arg4, int arg5) {
+	public final ModelUnlit getLocModel(int arg0, int arg1, int[][] arg2, int arg3, int arg4, int arg5) {
 		long var7;
 		if (this.shapes == null) {
 			var7 = (this.id << 10) + arg1;
@@ -479,7 +481,7 @@ public class LocType extends DoublyLinkable {
 	}
 
 	@ObfuscatedName("ey.b(II[[IIIILeo;IB)Lfo;")
-	public final ModelUnlit method2376(int arg0, int arg1, int[][] arg2, int arg3, int arg4, int arg5, SeqType arg6, int arg7) {
+	public final ModelUnlit getModelAnimated(int arg0, int arg1, int[][] arg2, int arg3, int arg4, int arg5, SeqType arg6, int arg7) {
 		long var9;
 		if (this.shapes == null) {
 			var9 = (this.id << 10) + arg1;
