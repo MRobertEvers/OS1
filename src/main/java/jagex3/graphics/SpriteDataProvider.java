@@ -51,10 +51,10 @@ public class SpriteDataProvider {
 				var8.field2518 = field530;
 				var8.field2515 = field531[var7];
 				var8.field2516 = field532[var7];
-				var8.field2513 = field41[var7];
+				var8.width = field41[var7];
 				var8.field2514 = field1151[var7];
 				var8.field2512 = field529;
-				var8.field2511 = field863[var7];
+				var8.pixels = field863[var7];
 			}
 			field531 = null;
 			field532 = null;
@@ -155,10 +155,10 @@ public class SpriteDataProvider {
 		var0.field2518 = field530;
 		var0.field2515 = field531[0];
 		var0.field2516 = field532[0];
-		var0.field2513 = field41[0];
+		var0.width = field41[0];
 		var0.field2514 = field1151[0];
 		var0.field2512 = field529;
-		var0.field2511 = field863[0];
+		var0.pixels = field863[0];
 		field531 = null;
 		field532 = null;
 		field41 = null;

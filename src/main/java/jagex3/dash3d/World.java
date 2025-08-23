@@ -448,6 +448,12 @@ public class World {
 				} else {
 					var22 = new LocEntity(arg3, 22, arg4, arg0, arg1, arg2, var9.anim, true, null);
 				}
+
+				if (var22 instanceof ModelUnlit && ((ModelUnlit)var22).faceVertexA.length > 200) {
+					System.out.println("faceVertexA: " + ((ModelUnlit)var22).faceVertexA.length);
+				} else if (var22 instanceof ModelLit && ((ModelLit)var22).faceVertexA.length > 200) {
+					System.out.println("faceVertexA: " + ((ModelLit)var22).faceVertexA.length);
+				}
 				arg6.addGroundDecor(arg0, arg1, arg2, var17, var22, var20, var21);
 				if (var9.blockwalk == 1 && arg7 != null) {
 					arg7.method1213(arg1, arg2);

@@ -29,13 +29,13 @@ public class Texture extends Linkable {
 	public int[] field1691;
 
 	@ObfuscatedName("er.v")
-	public int field1692;
+	public int animationDirection;
 
 	@ObfuscatedName("er.w")
-	public int field1682;
+	public int animationSpeed;
 
 	@ObfuscatedName("er.e")
-	public int[] field1694;
+	public int[] pixels;
 
 	@ObfuscatedName("er.b")
 	public boolean field1689 = false;
@@ -70,9 +70,9 @@ public class Texture extends Linkable {
 		for (int var6 = 0; var6 < var2; var6++) {
 			this.field1691[var6] = arg0.g4();
 		}
-		this.field1692 = arg0.g1();
-		this.field1682 = arg0.g1();
-		this.field1694 = null;
+		this.animationDirection = arg0.g1();
+		this.animationSpeed = arg0.g1();
+		this.pixels = null;
 	}
 
 	@ObfuscatedName("er.c(DILch;)Z")
@@ -84,11 +84,11 @@ public class Texture extends Linkable {
 			}
 		}
 		int var6 = arg1 * arg1;
-		this.field1694 = new int[var6];
+		this.pixels = new int[var6];
 		for (int var7 = 0; var7 < this.field1696.length; var7++) {
 			Pix8 var8 = SpriteDataProvider.method127(arg2, this.field1696[var7]);
-			var8.method2744();
-			byte[] var9 = var8.field2511;
+			var8.cropTexture();
+			byte[] var9 = var8.pixels;
 			int[] var10 = var8.field2512;
 			int var11 = this.field1691[var7];
 			if ((var11 & 0xFF000000) == 0x1000000) {
@@ -118,22 +118,22 @@ public class Texture extends Linkable {
 			if (var7 == 0) {
 			}
 			if (var18 == 0) {
-				if (var8.field2513 == arg1) {
+				if (var8.width == arg1) {
 					for (int var19 = 0; var19 < var6; var19++) {
-						this.field1694[var19] = var10[var9[var19] & 0xFF];
+						this.pixels[var19] = var10[var9[var19] & 0xFF];
 					}
-				} else if (var8.field2513 == 64 && arg1 == 128) {
+				} else if (var8.width == 64 && arg1 == 128) {
 					int var20 = 0;
 					for (int var21 = 0; var21 < arg1; var21++) {
 						for (int var22 = 0; var22 < arg1; var22++) {
-							this.field1694[var20++] = var10[var9[(var21 >> 1 << 6) + (var22 >> 1)] & 0xFF];
+							this.pixels[var20++] = var10[var9[(var21 >> 1 << 6) + (var22 >> 1)] & 0xFF];
 						}
 					}
-				} else if (var8.field2513 == 128 && arg1 == 64) {
+				} else if (var8.width == 128 && arg1 == 64) {
 					int var23 = 0;
 					for (int var24 = 0; var24 < arg1; var24++) {
 						for (int var25 = 0; var25 < arg1; var25++) {
-							this.field1694[var23++] = var10[var9[(var24 << 1 << 7) + (var25 << 1)] & 0xFF];
+							this.pixels[var23++] = var10[var9[(var24 << 1 << 7) + (var25 << 1)] & 0xFF];
 						}
 					}
 				} else {
@@ -152,65 +152,65 @@ public class Texture extends Linkable {
 
 	@ObfuscatedName("er.n()V")
 	public void method1572() {
-		this.field1694 = null;
+		this.pixels = null;
 	}
 
 	@ObfuscatedName("er.j(I)V")
-	public void method1576(int arg0) {
-		if (this.field1694 == null) {
+	public void animateTexture(int arg0) {
+		if (this.pixels == null) {
 			return;
 		}
-		if (this.field1692 == 1 || this.field1692 == 3) {
-			if (field1693 == null || field1693.length < this.field1694.length) {
-				field1693 = new int[this.field1694.length];
+		if (this.animationDirection == 1 || this.animationDirection == 3) {
+			if (field1693 == null || field1693.length < this.pixels.length) {
+				field1693 = new int[this.pixels.length];
 			}
 			short var2;
-			if (this.field1694.length == 4096) {
+			if (this.pixels.length == 4096) {
 				var2 = 64;
 			} else {
 				var2 = 128;
 			}
-			int var3 = this.field1694.length;
-			int var4 = arg0 * var2 * this.field1682;
+			int var3 = this.pixels.length;
+			int var4 = arg0 * var2 * this.animationSpeed;
 			int var5 = var3 - 1;
-			if (this.field1692 == 1) {
+			if (this.animationDirection == 1) {
 				var4 = -var4;
 			}
 			for (int var6 = 0; var6 < var3; var6++) {
 				int var7 = var4 + var6 & var5;
-				field1693[var6] = this.field1694[var7];
+				field1693[var6] = this.pixels[var7];
 			}
-			int[] var8 = this.field1694;
-			this.field1694 = field1693;
+			int[] var8 = this.pixels;
+			this.pixels = field1693;
 			field1693 = var8;
 		}
-		if (this.field1692 != 2 && this.field1692 != 4) {
+		if (this.animationDirection != 2 && this.animationDirection != 4) {
 			return;
 		}
-		if (field1693 == null || field1693.length < this.field1694.length) {
-			field1693 = new int[this.field1694.length];
+		if (field1693 == null || field1693.length < this.pixels.length) {
+			field1693 = new int[this.pixels.length];
 		}
 		short var9;
-		if (this.field1694.length == 4096) {
+		if (this.pixels.length == 4096) {
 			var9 = 64;
 		} else {
 			var9 = 128;
 		}
-		int var10 = this.field1694.length;
-		int var11 = this.field1682 * arg0;
+		int var10 = this.pixels.length;
+		int var11 = this.animationSpeed * arg0;
 		int var12 = var9 - 1;
-		if (this.field1692 == 2) {
+		if (this.animationDirection == 2) {
 			var11 = -var11;
 		}
 		for (int var13 = 0; var13 < var10; var13 += var9) {
 			for (int var14 = 0; var14 < var9; var14++) {
 				int var15 = var13 + var14;
 				int var16 = (var11 + var14 & var12) + var13;
-				field1693[var15] = this.field1694[var16];
+				field1693[var15] = this.pixels[var16];
 			}
 		}
-		int[] var17 = this.field1694;
-		this.field1694 = field1693;
+		int[] var17 = this.pixels;
+		this.pixels = field1693;
 		field1693 = var17;
 	}
 }

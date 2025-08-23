@@ -371,7 +371,7 @@ public class LoginScreen {
 			arg0.drawStringCenter(message, 382, 276 - var2, 16777215, -1);
 		}
 		if (Client.gameState == 20) {
-			field137.method2747(382 - field137.field2513 / 2, 271 - field137.field2514 / 2);
+			field137.method2747(382 - field137.width / 2, 271 - field137.field2514 / 2);
 			short var4 = 211;
 			arg0.drawStringCenter(line1Message, 382, var4, 16776960, 0);
 			int var89 = var4 + 15;
@@ -688,8 +688,8 @@ public class LoginScreen {
 		}
 		int var10 = 0;
 		for (int var11 = 0; var11 < arg0.field2514; var11++) {
-			for (int var12 = 0; var12 < arg0.field2513; var12++) {
-				if (arg0.field2511[var10++] != 0) {
+			for (int var12 = 0; var12 < arg0.width; var12++) {
+				if (arg0.pixels[var10++] != 0) {
 					int var13 = var12 + 16 + arg0.field2515;
 					int var14 = var11 + 16 + arg0.field2516;
 					int var15 = (var14 << 7) + var13;
@@ -899,7 +899,7 @@ public class LoginScreen {
 			field160 = false;
 			field146.method2667(0, 0);
 			field348.method2667(382, 0);
-			field131.method2747(382 - field131.field2513 / 2, 18);
+			field131.method2747(382 - field131.width / 2, 18);
 			return;
 		}
 		if (field168 == -1) {
@@ -915,7 +915,7 @@ public class LoginScreen {
 			field160 = false;
 			field146.method2667(0, 0);
 			field348.method2667(382, 0);
-			field131.method2747(382 - field131.field2513 / 2, 18);
+			field131.method2747(382 - field131.width / 2, 18);
 			return;
 		}
 		String var6 = "";
@@ -1155,6 +1155,6 @@ public class LoginScreen {
 		Js5Remote.field1507 = true;
 		field146.method2667(0, 0);
 		field348.method2667(382, 0);
-		field131.method2747(382 - field131.field2513 / 2, 18);
+		field131.method2747(382 - field131.width / 2, 18);
 	}
 }

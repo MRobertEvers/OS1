@@ -31,7 +31,7 @@ public class ModelUnlit extends Entity {
 	public int[] vertexZ;
 
 	@ObfuscatedName("fo.w")
-	public int field2780 = 0;
+	public int faceCount = 0;
 
 	@ObfuscatedName("fo.e")
 	public int[] faceVertexA;
@@ -206,14 +206,14 @@ public class ModelUnlit extends Entity {
 		boolean var5 = false;
 		boolean var6 = false;
 		this.vertexCount = 0;
-		this.field2780 = 0;
+		this.faceCount = 0;
 		this.field2738 = 0;
 		this.field2737 = -1;
 		for (int var7 = 0; var7 < count; var7++) {
 			ModelUnlit var8 = models[var7];
 			if (var8 != null) {
 				this.vertexCount += var8.vertexCount;
-				this.field2780 += var8.field2780;
+				this.faceCount += var8.faceCount;
 				this.field2738 += var8.field2738;
 				if (var8.facePriority == null) {
 					if (this.field2737 == -1) {
@@ -233,23 +233,23 @@ public class ModelUnlit extends Entity {
 		this.vertexX = new int[this.vertexCount];
 		this.vertexY = new int[this.vertexCount];
 		this.vertexZ = new int[this.vertexCount];
-		this.faceVertexA = new int[this.field2780];
-		this.faceVertexB = new int[this.field2780];
-		this.faceVertexC = new int[this.field2780];
-		this.faceColorA = new int[this.field2780];
-		this.faceColorB = new int[this.field2780];
-		this.faceColorC = new int[this.field2780];
+		this.faceVertexA = new int[this.faceCount];
+		this.faceVertexB = new int[this.faceCount];
+		this.faceVertexC = new int[this.faceCount];
+		this.faceColorA = new int[this.faceCount];
+		this.faceColorB = new int[this.faceCount];
+		this.faceColorC = new int[this.faceCount];
 		if (var3) {
-			this.facePriority = new byte[this.field2780];
+			this.facePriority = new byte[this.faceCount];
 		}
 		if (var4) {
-			this.faceAlpha = new byte[this.field2780];
+			this.faceAlpha = new byte[this.faceCount];
 		}
 		if (var5) {
-			this.faceTextures = new short[this.field2780];
+			this.faceTextures = new short[this.faceCount];
 		}
 		if (var6) {
-			this.textureCoords = new byte[this.field2780];
+			this.textureCoords = new byte[this.faceCount];
 		}
 		if (this.field2738 > 0) {
 			this.texIndicesP = new int[this.field2738];
@@ -257,43 +257,43 @@ public class ModelUnlit extends Entity {
 			this.texIndicesN = new int[this.field2738];
 		}
 		this.vertexCount = 0;
-		this.field2780 = 0;
+		this.faceCount = 0;
 		this.field2738 = 0;
 		for (int var9 = 0; var9 < count; var9++) {
 			ModelUnlit var10 = models[var9];
 			if (var10 != null) {
-				for (int var11 = 0; var11 < var10.field2780; var11++) {
-					this.faceVertexA[this.field2780] = var10.faceVertexA[var11] + this.vertexCount;
-					this.faceVertexB[this.field2780] = var10.faceVertexB[var11] + this.vertexCount;
-					this.faceVertexC[this.field2780] = var10.faceVertexC[var11] + this.vertexCount;
-					this.faceColorA[this.field2780] = var10.faceColorA[var11];
-					this.faceColorB[this.field2780] = var10.faceColorB[var11];
-					this.faceColorC[this.field2780] = var10.faceColorC[var11];
+				for (int var11 = 0; var11 < var10.faceCount; var11++) {
+					this.faceVertexA[this.faceCount] = var10.faceVertexA[var11] + this.vertexCount;
+					this.faceVertexB[this.faceCount] = var10.faceVertexB[var11] + this.vertexCount;
+					this.faceVertexC[this.faceCount] = var10.faceVertexC[var11] + this.vertexCount;
+					this.faceColorA[this.faceCount] = var10.faceColorA[var11];
+					this.faceColorB[this.faceCount] = var10.faceColorB[var11];
+					this.faceColorC[this.faceCount] = var10.faceColorC[var11];
 					if (var3) {
 						if (var10.facePriority == null) {
-							this.facePriority[this.field2780] = var10.field2737;
+							this.facePriority[this.faceCount] = var10.field2737;
 						} else {
-							this.facePriority[this.field2780] = var10.facePriority[var11];
+							this.facePriority[this.faceCount] = var10.facePriority[var11];
 						}
 					}
 					if (var4 && var10.faceAlpha != null) {
-						this.faceAlpha[this.field2780] = var10.faceAlpha[var11];
+						this.faceAlpha[this.faceCount] = var10.faceAlpha[var11];
 					}
 					if (var5) {
 						if (var10.faceTextures == null) {
-							this.faceTextures[this.field2780] = -1;
+							this.faceTextures[this.faceCount] = -1;
 						} else {
-							this.faceTextures[this.field2780] = var10.faceTextures[var11];
+							this.faceTextures[this.faceCount] = var10.faceTextures[var11];
 						}
 					}
 					if (var6) {
 						if (var10.textureCoords == null || var10.textureCoords[var11] == -1) {
-							this.textureCoords[this.field2780] = -1;
+							this.textureCoords[this.faceCount] = -1;
 						} else {
-							this.textureCoords[this.field2780] = (byte) (var10.textureCoords[var11] + this.field2738);
+							this.textureCoords[this.faceCount] = (byte) (var10.textureCoords[var11] + this.field2738);
 						}
 					}
-					this.field2780++;
+					this.faceCount++;
 				}
 				for (int var12 = 0; var12 < var10.field2738; var12++) {
 					this.texIndicesP[this.field2738] = var10.texIndicesP[var12] + this.vertexCount;
@@ -332,7 +332,7 @@ public class ModelUnlit extends Entity {
 		if (arg4) {
 			var15 = new ModelUnlit();
 			var15.vertexCount = this.vertexCount;
-			var15.field2780 = this.field2780;
+			var15.faceCount = this.faceCount;
 			var15.field2738 = this.field2738;
 			var15.vertexX = this.vertexX;
 			var15.vertexZ = this.vertexZ;
@@ -393,16 +393,16 @@ public class ModelUnlit extends Entity {
 
 	@ObfuscatedName("fo.y(Z)Lfo;")
 	public ModelUnlit method2999(boolean arg0) {
-		if (!arg0 && field2770.length < this.field2780) {
-			field2770 = new byte[this.field2780 + 100];
+		if (!arg0 && field2770.length < this.faceCount) {
+			field2770 = new byte[this.faceCount + 100];
 		}
 		return this.method3046(arg0, field2758, field2770);
 	}
 
 	@ObfuscatedName("fo.t(Z)Lfo;")
 	public ModelUnlit method3040(boolean arg0) {
-		if (!arg0 && field2725.length < this.field2780) {
-			field2725 = new byte[this.field2780 + 100];
+		if (!arg0 && field2725.length < this.faceCount) {
+			field2725 = new byte[this.faceCount + 100];
 		}
 		return this.method3046(arg0, field2720, field2725);
 	}
@@ -410,7 +410,7 @@ public class ModelUnlit extends Entity {
 	@ObfuscatedName("fo.f(ZLfo;[B)Lfo;")
 	public ModelUnlit method3046(boolean copyAlpha, ModelUnlit model, byte[] arg2) {
 		model.vertexCount = this.vertexCount;
-		model.field2780 = this.field2780;
+		model.faceCount = this.faceCount;
 		model.field2738 = this.field2738;
 		if (model.vertexX == null || model.vertexX.length < this.vertexCount) {
 			model.vertexX = new int[this.vertexCount + 100];
@@ -427,11 +427,11 @@ public class ModelUnlit extends Entity {
 		} else {
 			model.faceAlpha = arg2;
 			if (this.faceAlpha == null) {
-				for (int var5 = 0; var5 < this.field2780; var5++) {
+				for (int var5 = 0; var5 < this.faceCount; var5++) {
 					model.faceAlpha[var5] = 0;
 				}
 			} else {
-				for (int var6 = 0; var6 < this.field2780; var6++) {
+				for (int var6 = 0; var6 < this.faceCount; var6++) {
 					model.faceAlpha[var6] = this.faceAlpha[var6];
 				}
 			}
@@ -1015,8 +1015,14 @@ public class ModelUnlit extends Entity {
 			tmpDepthFaceCount[i] = 0;
 		}
 
-		for (int f = 0; f < this.field2780; f++) {
+		for (int f = 0; f < this.faceCount; f++) {
+			// if (this.faceColorC[f] == -2)
+			// {
+			// 	continue;
+			// }
 			if (this.faceColorC[f] != -2) {
+			// {
+				
 				int var6 = this.faceVertexA[f];
 				int var7 = this.faceVertexB[f];
 				int var8 = this.faceVertexC[f];
@@ -1220,6 +1226,7 @@ public class ModelUnlit extends Entity {
 
 	@ObfuscatedName("fo.an(I)V")
 	public final void drawFace(int face) {
+		// return;
 		if (faceNearClipped[face]) {
 			this.drawNearClippedFace(face);
 			return;

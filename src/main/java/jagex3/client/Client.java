@@ -3532,7 +3532,7 @@ public class Client extends GameShell {
 			} else {
 				Pix8 var14 = imageMapscene[var13.mapscene];
 				if (var14 != null) {
-					int var15 = (var13.width * 4 - var14.field2513) / 2;
+					int var15 = (var13.width * 4 - var14.width) / 2;
 					int var16 = (var13.length * 4 - var14.field2514) / 2;
 					var14.method2747(arg1 * 4 + 48 + var15, (104 - arg2 - var13.length) * 4 + 48 + var16);
 				}
@@ -3548,7 +3548,7 @@ public class Client extends GameShell {
 			if (var22.mapscene != -1) {
 				Pix8 var23 = imageMapscene[var22.mapscene];
 				if (var23 != null) {
-					int var24 = (var22.width * 4 - var23.field2513) / 2;
+					int var24 = (var22.width * 4 - var23.width) / 2;
 					int var25 = (var22.length * 4 - var23.field2514) / 2;
 					var23.method2747(arg1 * 4 + 48 + var24, (104 - arg2 - var22.length) * 4 + 48 + var25);
 				}
@@ -3583,7 +3583,7 @@ public class Client extends GameShell {
 		}
 		Pix8 var32 = imageMapscene[var31.mapscene];
 		if (var32 != null) {
-			int var33 = (var31.width * 4 - var32.field2513) / 2;
+			int var33 = (var31.width * 4 - var32.width) / 2;
 			int var34 = (var31.length * 4 - var32.field2514) / 2;
 			var32.method2747(arg1 * 4 + 48 + var33, (104 - arg2 - var31.length) * 4 + 48 + var34);
 		}
@@ -7033,7 +7033,7 @@ public class Client extends GameShell {
 	@ObfuscatedName("ba.gh(IIII)V")
 	public static final void method915(int arg0, int arg1, int arg2) {
 		method1351();
-		Pix2D.setBounds(arg0, arg1, imageMapback.field2513 + arg0, imageMapback.field2514 + arg1);
+		Pix2D.setBounds(arg0, arg1, imageMapback.width + arg0, imageMapback.field2514 + arg1);
 		if (minimapState == 2 || minimapState == 5) {
 			Pix2D.method2599(arg0 + 25, arg1 + 5, 0, minimapMaskLineOffsets, minimapMaskLineLengths);
 		} else {
@@ -10312,6 +10312,9 @@ public class Client extends GameShell {
 		}
 	}
 
+	public static long sumTime = 0;
+	public static long totalCalls = 0;
+
 	public static void imethod33() {
 		int var493 = cameraAnticheatOffsetX + localPlayer.x;
 		int var494 = cameraAnticheatOffsetZ + localPlayer.z;
@@ -10452,12 +10455,25 @@ public class Client extends GameShell {
 		method1351();
 
 		if (!Client.isModelViewer) {
+			long startTime = System.nanoTime();
+			// camerax = 5432, -1800, cameraz = 6930
+			// pitch 278, yaw 1540
+			// cameraX = 5432;
+			// cameraY = -1800;
+			// cameraZ = 6930;
+			// cameraPitch = 278;
+			// cameraYaw = 1540;
 			scene.draw(cameraX, cameraY, cameraZ, cameraPitch, cameraYaw, var62);
+			long endTime = System.nanoTime();
+			double durationMs = (endTime - startTime) / 1000000.0;
+			System.out.printf("Scene draw time: %.2f milliseconds calls: %d queueTime: %d%n", durationMs, scene.calls, scene.queueTime);
 		}
 		else 
 		{
 			if (myModel == null) {
-				ModelLit modelLit = ModelLit.tryGet(LocType.modelJs5, 1571, 0);
+				// 1571 is oak
+				// 14815 is lumbridge tile
+				ModelLit modelLit = ModelLit.tryGet(LocType.modelJs5, 14815, 0);
 				ModelUnlit model = modelLit.calculateNormals(0 + 64, 0 + 768, -50, -10, -50);
 				myModel = model;
 			}
@@ -10473,20 +10489,43 @@ public class Client extends GameShell {
 			int eyeY = cameraY;
 			int eyeZ = cameraZ;
 	
-			int x = 5312;
-			int y = -240;
-			int z = 8768;
+	
 	
 			
 			// x, y, z
-			myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,0,200,768, 0);
+			int scene_x = 0;
+			int scene_y = 200;
+			// int scene_z = 768;
+			int scene_z = 800;
+			long startTime = System.nanoTime();
+
+			for (int x = 0; x < 4; x++) {
+				for (int y = 0; y < 4; y++) {
+					int model_x = scene_x+x*128;
+					int model_y = scene_y;
+					int model_z = scene_z+y*128;
+					model_x -= 200;
+					myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,model_x,model_y,model_z, 0);
+				}
+			}
+			// myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,scene_x+100,scene_y,scene_z, 0);
+			// myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,scene_x,scene_y+100,scene_z, 0);
+			// myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,scene_x,scene_y,scene_z+100, 0);
+			// myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,scene_x+100,scene_y+100,scene_z, 0);
+			// myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,scene_x,scene_y,scene_z+100, 0);
+			// myModel.draw(0 ,sinEyePitch,cosEyePitch,sinEyeYaw,cosEyeYaw,scene_x,scene_y,scene_z+100, 0);
+			long endTime = System.nanoTime();
+			sumTime += endTime - startTime;
+			totalCalls++;
+			double durationMs = (sumTime / totalCalls) / 1000000.0;
+			System.out.printf("Model draw time: %.2f milliseconds calls: %d sumTime: %d%n", durationMs, totalCalls, sumTime);
 		}
 		method1351();
 
 		scene.clearTemporaryLocs();
 		imethod37(var12, var13, var31, var32);
 		drawTileHint(var12, var13);
-		((WorldTextureProvider) Pix3D.textureProvider).method751(sceneDelta);
+		((WorldTextureProvider) Pix3D.textureProvider).updateTextures(sceneDelta);
 		method1843(var12, var13, var31, var32);
 		cameraX = var65;
 		cameraY = var66;
@@ -11287,7 +11326,7 @@ public class Client extends GameShell {
 			int var48 = 999;
 			int var49 = 0;
 			for (int var50 = 0; var50 < 34; var50++) {
-				if (imageMapback.field2511[imageMapback.field2513 * var47 + var50] == 0) {
+				if (imageMapback.pixels[imageMapback.width * var47 + var50] == 0) {
 					if (var48 == 999) {
 						var48 = var50;
 					}
@@ -11303,7 +11342,7 @@ public class Client extends GameShell {
 			int var52 = 999;
 			int var53 = 0;
 			for (int var54 = 25; var54 < 172; var54++) {
-				if (imageMapback.field2511[imageMapback.field2513 * var51 + var54] == 0 && (var54 > 34 || var51 > 34)) {
+				if (imageMapback.pixels[imageMapback.width * var51 + var54] == 0 && (var54 > 34 || var51 > 34)) {
 					if (var52 == 999) {
 						var52 = var54;
 					}

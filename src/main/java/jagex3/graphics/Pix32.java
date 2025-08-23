@@ -1163,7 +1163,7 @@ public class Pix32 extends Pix2D {
 
 	@ObfuscatedName("fq.cy(Lft;II)V")
 	public void method2694(Pix8 arg0, int arg1, int arg2) {
-		if (right - left != arg0.field2513 || bottom - top != arg0.field2514) {
+		if (right - left != arg0.width || bottom - top != arg0.field2514) {
 			throw new IllegalStateException();
 		}
 		int var4 = this.field2502 + arg1;
@@ -1200,9 +1200,9 @@ public class Pix32 extends Pix2D {
 			var10 += var14;
 		}
 		if (var9 > 0 && var8 > 0) {
-			int var15 = (var5 - top) * arg0.field2513 + (var4 - left);
-			int var16 = arg0.field2513 - var9;
-			method2688(Pix2D.data, this.field2506, 0, var7, var6, var15, var9, var8, var10, var11, var16, arg0.field2511);
+			int var15 = (var5 - top) * arg0.width + (var4 - left);
+			int var16 = arg0.width - var9;
+			method2688(Pix2D.data, this.field2506, 0, var7, var6, var15, var9, var8, var10, var11, var16, arg0.pixels);
 		}
 	}
 

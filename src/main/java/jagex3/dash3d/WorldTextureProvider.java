@@ -63,10 +63,10 @@ public class WorldTextureProvider implements TextureProvider {
 		}
 		Texture var2 = this.field719[textureId];
 		if (var2 != null) {
-			if (var2.field1694 != null) {
+			if (var2.pixels != null) {
 				this.field722.addHead(var2);
 				var2.field1689 = true;
-				return var2.field1694;
+				return var2.pixels;
 			}
 			boolean var3 = var2.method1571(this.brightness, this.resolution, this.spriteJs5);
 			if (var3) {
@@ -78,7 +78,7 @@ public class WorldTextureProvider implements TextureProvider {
 				}
 				this.field722.addHead(var2);
 				var2.field1689 = true;
-				return var2.field1694;
+				return var2.pixels;
 			}
 		}
 		return null;
@@ -111,11 +111,11 @@ public class WorldTextureProvider implements TextureProvider {
 	}
 
 	@ObfuscatedName("bi.w(II)V")
-	public void method751(int arg0) {
+	public void updateTextures(int arg0) {
 		for (int var2 = 0; var2 < this.field719.length; var2++) {
 			Texture var3 = this.field719[var2];
-			if (var3 != null && var3.field1692 != 0 && var3.field1689) {
-				var3.method1576(arg0);
+			if (var3 != null && var3.animationDirection != 0 && var3.field1689) {
+				var3.animateTexture(arg0);
 				var3.field1689 = false;
 			}
 		}

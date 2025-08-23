@@ -33,7 +33,7 @@ public class ModelLit extends Entity {
 	public int[] faceVertexC;
 
 	@ObfuscatedName("fw.w")
-	public byte[] field2679;
+	public byte[] faceInfos;
 
 	@ObfuscatedName("fw.e")
 	public byte[] field2680;
@@ -274,7 +274,7 @@ public class ModelLit extends Entity {
 		}
 
 		if (var12 == 1) {
-			this.field2679 = new byte[var10];
+			this.faceInfos = new byte[var10];
 		}
 
 		if (hasPriorities == 255) {
@@ -358,7 +358,7 @@ public class ModelLit extends Entity {
 		for (int var72 = 0; var72 < var10; var72++) {
 			this.faceColors[var72] = (short) head.g2();
 			if (var12 == 1) {
-				this.field2679[var72] = var3.g1b();
+				this.faceInfos[var72] = var3.g1b();
 			}
 			if (hasPriorities == 255) {
 				this.field2680[var72] = var4.g1b();
@@ -551,7 +551,7 @@ public class ModelLit extends Entity {
 			this.field2713 = new int[var9];
 		}
 		if (var12 == 1) {
-			this.field2679 = new byte[var10];
+			this.faceInfos = new byte[var10];
 			this.textureCoords = new byte[var10];
 			this.field2705 = new short[var10];
 		}
@@ -609,10 +609,10 @@ public class ModelLit extends Entity {
 			if (var12 == 1) {
 				int var52 = var5.g1();
 				if ((var52 & 0x1) == 1) {
-					this.field2679[var51] = 1;
+					this.faceInfos[var51] = 1;
 					var2 = true;
 				} else {
-					this.field2679[var51] = 0;
+					this.faceInfos[var51] = 0;
 				}
 				if ((var52 & 0x2) == 2) {
 					this.textureCoords[var51] = (byte) (var52 >> 2);
@@ -707,7 +707,7 @@ public class ModelLit extends Entity {
 			this.field2705 = null;
 		}
 		if (!var2) {
-			this.field2679 = null;
+			this.faceInfos = null;
 		}
 	}
 
@@ -738,7 +738,7 @@ public class ModelLit extends Entity {
 				} else {
 					var4 = true;
 				}
-				var3 |= var10.field2679 != null;
+				var3 |= var10.faceInfos != null;
 				var5 |= var10.field2709 != null;
 				var6 |= var10.field2699 != null;
 				var7 |= var10.field2705 != null;
@@ -753,7 +753,7 @@ public class ModelLit extends Entity {
 		this.faceVertexB = new int[this.faceCount];
 		this.faceVertexC = new int[this.faceCount];
 		if (var3) {
-			this.field2679 = new byte[this.faceCount];
+			this.faceInfos = new byte[this.faceCount];
 		}
 		if (var4) {
 			this.field2680 = new byte[this.faceCount];
@@ -791,8 +791,8 @@ public class ModelLit extends Entity {
 			ModelLit var12 = arg0[var11];
 			if (var12 != null) {
 				for (int var13 = 0; var13 < var12.faceCount; var13++) {
-					if (var3 && var12.field2679 != null) {
-						this.field2679[this.faceCount] = var12.field2679[var13];
+					if (var3 && var12.faceInfos != null) {
+						this.faceInfos[this.faceCount] = var12.faceInfos[var13];
 					}
 					if (var4) {
 						if (var12.field2680 == null) {
@@ -929,7 +929,7 @@ public class ModelLit extends Entity {
 		this.faceVertexA = arg0.faceVertexA;
 		this.faceVertexB = arg0.faceVertexB;
 		this.faceVertexC = arg0.faceVertexC;
-		this.field2679 = arg0.field2679;
+		this.faceInfos = arg0.faceInfos;
 		this.field2680 = arg0.field2680;
 		this.textureCoords = arg0.textureCoords;
 		this.field2684 = arg0.field2684;
@@ -958,10 +958,10 @@ public class ModelLit extends Entity {
 	@ObfuscatedName("fw.k()Lfw;")
 	public ModelLit method2982() {
 		ModelLit var1 = new ModelLit();
-		if (this.field2679 != null) {
-			var1.field2679 = new byte[this.faceCount];
+		if (this.faceInfos != null) {
+			var1.faceInfos = new byte[this.faceCount];
 			for (int var2 = 0; var2 < this.faceCount; var2++) {
-				var1.field2679[var2] = this.field2679[var2];
+				var1.faceInfos[var2] = this.faceInfos[var2];
 			}
 		}
 		var1.vertexCount = this.vertexCount;
@@ -1029,7 +1029,7 @@ public class ModelLit extends Entity {
 			var15.faceVertexA = this.faceVertexA;
 			var15.faceVertexB = this.faceVertexB;
 			var15.faceVertexC = this.faceVertexC;
-			var15.field2679 = this.field2679;
+			var15.faceInfos = this.faceInfos;
 			var15.field2680 = this.field2680;
 			var15.field2709 = this.field2709;
 			var15.textureCoords = this.textureCoords;
@@ -1278,10 +1278,10 @@ public class ModelLit extends Entity {
 			int var18 = nz * 256 / length;
 
 			byte var19;
-			if (this.field2679 == null) {
+			if (this.faceInfos == null) {
 				var19 = 0;
 			} else {
-				var19 = this.field2679[f];
+				var19 = this.faceInfos[f];
 			}
 
 			if (var19 == 0) {
@@ -1431,21 +1431,21 @@ public class ModelLit extends Entity {
 		if (var6 >= 3 && arg5) {
 			for (int var18 = 0; var18 < arg0.faceCount; var18++) {
 				if (field2683[arg0.faceVertexA[var18]] == field2715 && field2683[arg0.faceVertexB[var18]] == field2715 && field2683[arg0.faceVertexC[var18]] == field2715) {
-					if (arg0.field2679 == null) {
-						arg0.field2679 = new byte[arg0.faceCount];
+					if (arg0.faceInfos == null) {
+						arg0.faceInfos = new byte[arg0.faceCount];
 					}
 
 					// Hidden face (facetype 2 is hidden)
-					arg0.field2679[var18] = 2;
+					arg0.faceInfos[var18] = 2;
 				}
 			}
 			for (int var19 = 0; var19 < arg1.faceCount; var19++) {
 				if (field2714[arg1.faceVertexA[var19]] == field2715 && field2714[arg1.faceVertexB[var19]] == field2715 && field2714[arg1.faceVertexC[var19]] == field2715) {
-					if (arg1.field2679 == null) {
-						arg1.field2679 = new byte[arg1.faceCount];
+					if (arg1.faceInfos == null) {
+						arg1.faceInfos = new byte[arg1.faceCount];
 					}
 					// Hidden face (facetype 2 is hidden)
-					arg1.field2679[var19] = 2;
+					arg1.faceInfos[var19] = 2;
 				}
 			}
 		}
@@ -1498,10 +1498,10 @@ public class ModelLit extends Entity {
 		}
 		for (int var15 = 0; var15 < this.faceCount; var15++) {
 			byte var16;
-			if (this.field2679 == null) {
+			if (this.faceInfos == null) {
 				var16 = 0;
 			} else {
-				var16 = this.field2679[var15];
+				var16 = this.faceInfos[var15];
 			}
 			byte var17;
 			if (this.field2709 == null) {
@@ -1598,7 +1598,7 @@ public class ModelLit extends Entity {
 		var8.vertexX = this.vertexX;
 		var8.vertexY = this.vertexY;
 		var8.vertexZ = this.vertexZ;
-		var8.field2780 = this.faceCount;
+		var8.faceCount = this.faceCount;
 		var8.faceVertexA = this.faceVertexA;
 		var8.faceVertexB = this.faceVertexB;
 		var8.faceVertexC = this.faceVertexC;

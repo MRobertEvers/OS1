@@ -7,13 +7,13 @@ import deob.ObfuscatedName;
 public class Pix8 extends Pix2D {
 
 	@ObfuscatedName("ft.u")
-	public byte[] field2511;
+	public byte[] pixels;
 
 	@ObfuscatedName("ft.v")
 	public int[] field2512;
 
 	@ObfuscatedName("ft.w")
-	public int field2513;
+	public int width;
 
 	@ObfuscatedName("ft.e")
 	public int field2514;
@@ -31,19 +31,20 @@ public class Pix8 extends Pix2D {
 	public int field2518;
 
 	@ObfuscatedName("ft.bm()V")
-	public void method2744() {
-		if (this.field2517 == this.field2513 && this.field2518 == this.field2514) {
+	// update textures, animate textures?
+	public void cropTexture() {
+		if (this.field2517 == this.width && this.field2518 == this.field2514) {
 			return;
 		}
 		byte[] var1 = new byte[this.field2518 * this.field2517];
 		int var2 = 0;
 		for (int var3 = 0; var3 < this.field2514; var3++) {
-			for (int var4 = 0; var4 < this.field2513; var4++) {
-				var1[(this.field2516 + var3) * this.field2517 + this.field2515 + var4] = this.field2511[var2++];
+			for (int var4 = 0; var4 < this.width; var4++) {
+				var1[(this.field2516 + var3) * this.field2517 + this.field2515 + var4] = this.pixels[var2++];
 			}
 		}
-		this.field2511 = var1;
-		this.field2513 = this.field2517;
+		this.pixels = var1;
+		this.width = this.field2517;
 		this.field2514 = this.field2518;
 		this.field2515 = 0;
 		this.field2516 = 0;
@@ -84,7 +85,7 @@ public class Pix8 extends Pix2D {
 		int var5 = Pix2D.width2d * var4 + var3;
 		int var6 = 0;
 		int var7 = this.field2514;
-		int var8 = this.field2513;
+		int var8 = this.width;
 		int var9 = Pix2D.width2d - var8;
 		int var10 = 0;
 		if (var4 < top) {
@@ -113,7 +114,7 @@ public class Pix8 extends Pix2D {
 			var9 += var13;
 		}
 		if (var8 > 0 && var7 > 0) {
-			method2745(Pix2D.data, this.field2511, this.field2512, var6, var5, var8, var7, var9, var10);
+			method2745(Pix2D.data, this.pixels, this.field2512, var6, var5, var8, var7, var9, var10);
 		}
 	}
 
